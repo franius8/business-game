@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
-import './App.css'
+import './App.scss'
 import Board from "./Board/Board";
 import BoardSquare from "./BoardSquare/BoardSquare";
 import CornerSpace from "./CornerSpace/CornerSpace";
