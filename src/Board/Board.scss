@@ -1,0 +1,9 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-template-rows: repeat(13, 1fr);
+  height: 80vh;
+  background-color: #535bf2;
+  gap: 1px;
+  aspect-ratio: 1 / 1;
+}
