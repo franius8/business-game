@@ -1,9 +1,12 @@
+@import "src/variables.scss";
+
 .board {
   display: grid;
   grid-template-columns: repeat(13, 1fr);
   grid-template-rows: repeat(13, 1fr);
   height: 80vh;
-  background-color: #535bf2;
+  background-color: black;
+  border: $borderColor solid 2px;
   gap: 1px;
   aspect-ratio: 1 / 1;
 }
