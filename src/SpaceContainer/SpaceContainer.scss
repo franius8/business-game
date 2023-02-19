@@ -44,6 +44,12 @@
     height: 100%;
   }
 
+  .space p {
+    writing-mode: vertical-rl;
+    font-size: 0.5rem;
+    transform: rotate(180deg);
+  }
+
   .color-stripe {
     height: 100%;
     width: 1rem;

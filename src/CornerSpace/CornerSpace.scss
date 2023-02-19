@@ -8,6 +8,10 @@
   color: black;
   font-size: 2rem;
   background-color: $spaceBackgroundColor;
+  &:hover {
+    background-color: $spaceHoverColor;
+    cursor: pointer;
+  }
 }
 
 .corner-space-1 {
