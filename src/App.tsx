@@ -7,12 +7,19 @@ import SpaceContainer from "./SpaceContainer/SpaceContainer";
 import Space from "./Space/Space";
 import {AiOutlineArrowLeft, GiWindowBars, GrUserPolice, TbParking} from "react-icons/all";
 import PropertyView from "./PropertyView/PropertyView";
-import {PropertyType} from "./d";
+import {PropertyInterface, PropertyType, SpaceInterface} from "./d";
 
 function App() {
   const corners = [1, 2, 3, 4];
   const cornerIcons = [<TbParking />, <GrUserPolice />, <GiWindowBars />, <AiOutlineArrowLeft />]
   const spaces = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  const [selectedProperty, setSelectedProperty] = React.useState<SpaceInterface | null>(null);
+
+  const updateSelectedProperty = (space: SpaceInterface) => {
+    setSelectedProperty(space);
+  }
+
 
   const testProperty = {
     color: PropertyType.Red,
@@ -25,7 +32,8 @@ function App() {
     rent4house: 50,
     renthotel: 60,
     housecost: 70,
-    hotelcost: 80
+    hotelcost: 80,
+    mortgage: 90,
   }
 
   return (
@@ -37,28 +45,28 @@ function App() {
             ))}
           <SpaceContainer x={"left"} y={"vertical"}>
               {spaces.map((space) => (
-                  <Space key={space}>
+                  <Space key={space} property={testProperty} updateSelectedProperty={updateSelectedProperty}>
                       <p className={"propertyName"}>West</p>
                   </Space>
                 ))}
           </SpaceContainer>
           <SpaceContainer x={"right"} y={"vertical"}>
               {spaces.map((space) => (
-                  <Space key={space}>{space}</Space>
+                  <Space key={space} property={testProperty} updateSelectedProperty={updateSelectedProperty}>{space}</Space>
               ))}
           </SpaceContainer>
           <SpaceContainer x={"left"} y={"horizontal"}>
               {spaces.map((space) => (
-                  <Space key={space}>{space}</Space>
+                  <Space key={space} property={testProperty} updateSelectedProperty={updateSelectedProperty}>{space}</Space>
               ))}
           </SpaceContainer>
           <SpaceContainer x={"right"} y={"horizontal"}>
               {spaces.map((space) => (
-                  <Space key={space}>{space}</Space>
+                  <Space key={space} property={testProperty} updateSelectedProperty={updateSelectedProperty}>{space}</Space>
               ))}
           </SpaceContainer>
       </Board>
-        <PropertyView property={testProperty} />
+        <PropertyView property={selectedProperty} />
     </div>
   )
 }

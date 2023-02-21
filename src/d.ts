@@ -1,16 +1,48 @@
-export interface PropertyInterface {
-    color: PropertyType;
+export interface SpaceInterface {
+    type: SpaceType;
+    property?: PropertyInterface;
+    railroad?: RailroadInterface;
+    utility?: UtilityInterface;
+    tax?: TaxInterface;
+}
+
+export interface PurchaseableInterface {
     name: string;
     price: number;
+    mortgage: number;
+}
+
+export interface PropertyInterface extends PurchaseableInterface {
+    color: PropertyType;
     rentnohouse: number;
     rent1house: number;
     rent2house: number;
     rent3house: number;
     rent4house: number;
     renthotel: number;
-    mortgage: number;
     housecost: number;
     hotelcost: number;
+}
+
+export interface RailroadInterface extends PurchaseableInterface {
+    rent: number;
+}
+
+export interface UtilityInterface extends PurchaseableInterface {
+}
+
+export interface TaxInterface {
+    name: string;
+    amount: number;
+}
+
+export enum SpaceType {
+    Property = "Property",
+    Railroad = "Railroad",
+    Utility = "Utility",
+    Chance = "Chance",
+    CommunityChest = "Community Chest",
+    Tax = "Tax"
 }
 
 export enum PropertyType {
