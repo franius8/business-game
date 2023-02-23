@@ -1,16 +1,15 @@
-import React from "react";
-import {SpaceInterface, SpaceType} from "../d";
+import {CornerSpaceType, SpaceInterface, SpaceType} from "../d";
 import {
-    redProperties,
-    greenProperties,
-    darkBlueProperties,
-    yellowProperties,
-    lightBlueProperties,
     brownProperties,
+    darkBlueProperties,
+    greenProperties,
+    lightBlueProperties,
     orangeProperties,
-    pinkProperties
+    pinkProperties,
+    redProperties,
+    yellowProperties
 } from "../Properties/properties";
-import {GiTap, ImPower} from "react-icons/all";
+import {GiTap, GiWindowBars, GrUserPolice, ImPower, TbArrowLeftTail, TbParking} from "react-icons/all";
 
 export const topSpaces: SpaceInterface[] = [
     {
@@ -197,3 +196,43 @@ export const leftSpaces: SpaceInterface[] = [
         property: pinkProperties[0],
     }
 ];
+
+export const cornerSpaces: SpaceInterface[] = [
+    {
+        type: SpaceType.CornerSpace,
+        cornerSpace: {
+            name: "Free Parking",
+            icon: TbParking,
+            type: CornerSpaceType.FreeParking,
+            description: "Free Parking"
+        }
+    },
+    {
+        type: SpaceType.CornerSpace,
+        cornerSpace: {
+            name: "Go To Jail",
+            icon: GrUserPolice,
+            type: CornerSpaceType.GoToJail,
+            description: "Go directly to Jail. Do not pass Go, do not collect $200"
+        }
+    },
+    {
+        type: SpaceType.CornerSpace,
+        cornerSpace: {
+            name: "Jail",
+            icon: GiWindowBars,
+            type: CornerSpaceType.Jail,
+            description: "Just visiting"
+        }
+    },
+    {
+        type: SpaceType.CornerSpace,
+        cornerSpace: {
+            name: "Go",
+            icon: TbArrowLeftTail,
+            type: CornerSpaceType.Go,
+            amount: 200,
+            description: "Collect $200 as you pass Go"
+        }
+    },
+    ]

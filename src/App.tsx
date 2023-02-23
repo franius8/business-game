@@ -5,14 +5,14 @@ import BoardSquare from "./BoardSquare/BoardSquare";
 import CornerSpace from "./CornerSpace/CornerSpace";
 import SpaceContainer from "./SpaceContainer/SpaceContainer";
 import Space from "./Space/Space";
-import {AiOutlineArrowLeft, GiWindowBars, GrUserPolice, TbParking} from "react-icons/all";
-import PropertyView from "./PropertyView/PropertyView";
-import {PropertyType, SpaceInterface, SpaceType} from "./d";
-import {bottomSpaces, leftSpaces, rightSpaces, topSpaces } from "./Spaces/spaces";
+import {GiWindowBars, GrUserPolice, TbArrowLeftTail, TbParking} from "react-icons/all";
+import SpaceView from "./SpaceView/SpaceView";
+import {SpaceInterface} from "./d";
+import {bottomSpaces, cornerSpaces, leftSpaces, rightSpaces, topSpaces} from "./Spaces/spaces";
 
 function App() {
   const corners = [1, 2, 3, 4];
-  const cornerIcons = [<TbParking />, <GrUserPolice />, <GiWindowBars />, <AiOutlineArrowLeft />]
+  const cornerIcons = [<TbParking />, <GrUserPolice />, <GiWindowBars />, <TbArrowLeftTail />];
   const spaces = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const [selectedProperty, setSelectedProperty] = React.useState<SpaceInterface | null>(null);
@@ -26,7 +26,9 @@ function App() {
       <Board>
           <BoardSquare />
           {corners.map((corner, index) => (
-              <CornerSpace key={corner} corner={corner}>{cornerIcons[index]}</CornerSpace>
+              <CornerSpace key={corner} corner={corner} space={cornerSpaces[index]} clickHandler={updateSelectedProperty}>
+                  {cornerIcons[index]}
+              </CornerSpace>
             ))}
           <SpaceContainer x={"left"} y={"vertical"}>
               {spaces.map((space, index) => (
@@ -51,7 +53,7 @@ function App() {
               ))}
           </SpaceContainer>
       </Board>
-        <PropertyView space={selectedProperty} />
+        <SpaceView space={selectedProperty} />
     </div>
   )
 }

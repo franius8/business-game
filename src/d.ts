@@ -6,12 +6,20 @@ export interface SpaceInterface {
     railroad?: RailroadInterface;
     utility?: UtilityInterface;
     tax?: TaxInterface;
+    cornerSpace?: CornertSpaceInterface | GoInterface;
 }
 
 export interface PurchaseableInterface {
     name: string;
     price: number;
     mortgage: number;
+}
+
+export interface CornertSpaceInterface {
+    name: string;
+    icon: IconType;
+    description: string;
+    type: CornerSpaceType;
 }
 
 export interface PropertyInterface extends PurchaseableInterface {
@@ -39,13 +47,25 @@ export interface TaxInterface {
     amount: number;
 }
 
+export interface GoInterface extends CornertSpaceInterface {
+    amount: number;
+}
+
 export enum SpaceType {
     Property = "Property",
     Railroad = "Railroad",
     Utility = "Utility",
     Chance = "Chance",
     CommunityChest = "Community Chest",
-    Tax = "Tax"
+    Tax = "Tax",
+    CornerSpace = "CornerSpace",
+}
+
+export enum CornerSpaceType {
+    Go = "Go",
+    Jail = "Jail",
+    FreeParking = "Free Parking",
+    GoToJail = "Go To Jail",
 }
 
 export enum PropertyType {
