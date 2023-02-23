@@ -1,3 +1,5 @@
+import {IconType} from "react-icons";
+
 export interface SpaceInterface {
     type: SpaceType;
     property?: PropertyInterface;
@@ -29,6 +31,7 @@ export interface RailroadInterface extends PurchaseableInterface {
 }
 
 export interface UtilityInterface extends PurchaseableInterface {
+    icon: IconType
 }
 
 export interface TaxInterface {

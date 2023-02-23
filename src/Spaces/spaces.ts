@@ -1,3 +1,4 @@
+import React from "react";
 import {SpaceInterface, SpaceType} from "../d";
 import {
     redProperties,
@@ -9,22 +10,29 @@ import {
     orangeProperties,
     pinkProperties
 } from "../Properties/properties";
+import {GiTap, ImPower} from "react-icons/all";
 
 export const topSpaces: SpaceInterface[] = [
     {
         type: SpaceType.Property,
-        property: redProperties[0],
+        property: yellowProperties[2],
     },
     {
-        type: SpaceType.Chance,
+        type: SpaceType.Utility,
+        utility: {
+            name: "Water Works",
+            price: 150,
+            mortgage: 75,
+            icon: GiTap,
+        }
     },
     {
         type: SpaceType.Property,
-        property: redProperties[1],
+        property: yellowProperties[1],
     },
     {
         type: SpaceType.Property,
-        property: redProperties[2],
+        property: yellowProperties[2],
     },
     {
         type: SpaceType.Railroad,
@@ -37,23 +45,18 @@ export const topSpaces: SpaceInterface[] = [
     },
     {
         type: SpaceType.Property,
-        property: yellowProperties[0],
+        property: redProperties[2],
     },
     {
         type: SpaceType.Property,
-        property: yellowProperties[1],
+        property: redProperties[1],
     },
     {
-        type: SpaceType.Utility,
-        utility: {
-            name: "Water Works",
-            price: 150,
-            mortgage: 75,
-        }
+        type: SpaceType.Chance,
     },
     {
         type: SpaceType.Property,
-        property: yellowProperties[2],
+        property: redProperties[0],
     },
 ];
 
@@ -81,6 +84,13 @@ export const rightSpaces: SpaceInterface[] = [
             mortgage: 100,
             rent: 25,
         }
+    },
+    {
+        type: SpaceType.Chance,
+    },
+    {
+        type: SpaceType.Property,
+        property: darkBlueProperties[1],
     },
     {
         type: SpaceType.Tax,
@@ -132,6 +142,9 @@ export const bottomSpaces: SpaceInterface[] = [
         property: brownProperties[1],
     },
     {
+        type: SpaceType.CommunityChest,
+    },
+    {
         type: SpaceType.Property,
         property: brownProperties[0],
     }
@@ -176,6 +189,7 @@ export const leftSpaces: SpaceInterface[] = [
             name: "Electric Company",
             price: 150,
             mortgage: 75,
+            icon: ImPower,
         }
     },
     {

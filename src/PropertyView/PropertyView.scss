@@ -8,7 +8,9 @@
   gap: 1rem;
   flex-direction: column;
   width: 12rem;
+  height: 20.5rem;
   box-sizing: content-box;
+  margin: 0;
 
   .color-stripe {
     height: 2rem;
@@ -19,6 +21,37 @@
     padding: $standardPadding;
     font-weight: 600;
     border: 1px solid $borderColor;
+  }
+
+  .header {
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1rem;
+    .name {
+        min-height: 3rem;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      p {
+        margin: 0;
+      }
+    }
+  }
+
+  .long-hr {
+    width: 90%;
+    text-align: center;
+  }
+
+  .railroad-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:first-child {
+      font-size: 5rem;
+    }
   }
 
   .property-view-table {
@@ -32,10 +65,28 @@
     .right {
         text-align: right;
     }
-
-    .long-hr {
-      width: 90%;
-      text-align: center;
+  }
+  .utilitydescription {
+    p {
+      margin: 0.4rem 0;
+      font-size: 0.8rem;
     }
   }
+
+  .chance-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+  }
+
+  .reversed {
+    transform: rotate(180deg);
+  }
+}
+
+.chance-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

@@ -3,7 +3,7 @@ import "./ColorStripe.scss";
 
 export function ColorStripe(props: { color: string }) {
     return (
-        <div className={"color-stripe color-stripe-" + props.color}>
+        <div className={"color-stripe"} style={{backgroundColor: props.color}}>
         </div>
     );
 }

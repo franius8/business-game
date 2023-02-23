@@ -4,9 +4,9 @@ import "./BoardSquare.scss";
 export default function BoardSquare() {
     return (
         <div className={"board-square"}>
-            <div className={"community-chest"} >Community Chest</div>
-            <h1>Business</h1>
-            <div className={"chance"} >Chance</div>
+            <div className={"community-chest-stripe"} >Community Chest</div>
+            <h1>TEST</h1>
+            <div className={"chance-stripe"} >Chance</div>
         </div>
     );
 }
