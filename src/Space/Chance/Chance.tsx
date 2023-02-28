@@ -5,7 +5,9 @@ import {FaQuestion} from "react-icons/all";
 export const Chance = () => {
     return (
         <div className="chance">
-            <FaQuestion/>
+            <div className="chance-icon">
+                <FaQuestion/>
+            </div>
         </div>
     );
 }

@@ -26,30 +26,26 @@ function App() {
       <Board>
           <BoardSquare />
           {corners.map((corner, index) => (
-              <CornerSpace key={corner} corner={corner} space={cornerSpaces[index]} clickHandler={updateSelectedProperty}>
-                  {cornerIcons[index]}
-              </CornerSpace>
+              <CornerSpace key={corner} corner={corner} space={cornerSpaces[index]} clickHandler={updateSelectedProperty} />
             ))}
           <SpaceContainer x={"left"} y={"vertical"}>
               {spaces.map((space, index) => (
-                  <Space key={space} space={leftSpaces[index]} updateSelectedProperty={updateSelectedProperty}>
-                      <p className={"propertyName"}>West</p>
-                  </Space>
+                  <Space key={space} space={leftSpaces[index]} updateSelectedProperty={updateSelectedProperty} />
                 ))}
           </SpaceContainer>
           <SpaceContainer x={"right"} y={"vertical"}>
               {spaces.map((space, index) => (
-                  <Space key={space} space={rightSpaces[index]} updateSelectedProperty={updateSelectedProperty}>{space}</Space>
+                  <Space key={space} space={rightSpaces[index]} updateSelectedProperty={updateSelectedProperty} />
               ))}
           </SpaceContainer>
           <SpaceContainer x={"left"} y={"horizontal"}>
               {spaces.map((space, index) => (
-                  <Space key={space} space={topSpaces[index]} updateSelectedProperty={updateSelectedProperty}>{space}</Space>
+                  <Space key={space} space={topSpaces[index]} updateSelectedProperty={updateSelectedProperty} />
               ))}
           </SpaceContainer>
           <SpaceContainer x={"right"} y={"horizontal"}>
               {spaces.map((space, index) => (
-                  <Space key={space} space={bottomSpaces[index]} updateSelectedProperty={updateSelectedProperty}>{space}</Space>
+                  <Space key={space} space={bottomSpaces[index]} updateSelectedProperty={updateSelectedProperty} />
               ))}
           </SpaceContainer>
       </Board>

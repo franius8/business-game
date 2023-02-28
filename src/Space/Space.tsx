@@ -8,7 +8,7 @@ import Utility from "./Utility/Utility";
 import Tax from "./Tax/Tax";
 import {CommunityChest} from "./CommunityChest/CommunityChest";
 
-export default function Space(props: { children: React.ReactNode, space: SpaceInterface,
+export default function Space(props: { space: SpaceInterface,
     updateSelectedProperty: (space: SpaceInterface) => void }) {
 
     const handleClick = () => {
@@ -19,21 +19,19 @@ export default function Space(props: { children: React.ReactNode, space: SpaceIn
 
     switch (props.space.type) {
         case SpaceType.Property:
-            spaceElement = <Property property={props.space.property!}>
-                <p>{props.children}</p>
-            </Property>;
+            spaceElement = <Property property={props.space.property!} />;
             break;
         case SpaceType.Chance:
             spaceElement = <Chance />;
             break;
         case SpaceType.Railroad:
-            spaceElement = <Railroad />
+            spaceElement = <Railroad railroad={props.space.railroad!} />
             break;
         case SpaceType.Utility:
-            spaceElement = <Utility />
+            spaceElement = <Utility utility={props.space.utility!} />
             break;
         case SpaceType.Tax:
-            spaceElement = <Tax />
+            spaceElement = <Tax tax={props.space.tax!}/>
             break;
         case SpaceType.CommunityChest:
             spaceElement = <CommunityChest />

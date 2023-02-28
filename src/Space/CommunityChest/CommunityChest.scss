@@ -1,0 +1,21 @@
+@import '../../variables';
+
+.community-chest {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.space-container-right-vertical .community-chest {
+  transform: rotate(-90deg);
+}
+
+.space-container-left-vertical .community-chest {
+  transform: rotate(90deg);
+}
+
+.community-chest-icon {
+  font-size: $iconSize;
+}

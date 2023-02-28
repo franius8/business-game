@@ -1,0 +1,22 @@
+@import "src/variables";
+
+.utility-icon {
+  font-size: $iconSize;
+  line-height: $iconSize;
+  padding: 0.3rem;
+}
+
+.utility-name {
+  font-size: $spaceFontSize;
+}
+
+.space-container-left-vertical .utility {
+  display: flex;
+  flex-direction: row-reverse;
+  .utility-icon {
+    transform: rotate(90deg);
+  }
+  .utility-name {
+    display: flex;
+  }
+}

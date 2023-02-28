@@ -1,5 +1,4 @@
 import React from "react";
-import {TbArrowLeftTail} from "react-icons/all";
 import {CornertSpaceInterface} from "../../d";
 
 export default function CornerSpaceView( props: { cornerSpace: CornertSpaceInterface}) {
