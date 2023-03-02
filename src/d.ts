@@ -51,6 +51,15 @@ export interface GoInterface extends CornertSpaceInterface {
     amount: number;
 }
 
+export interface PlayerInterface {
+    name: string;
+    color: string;
+    pawn: IconType;
+    position: number;
+    money: number;
+    properties: PurchaseableInterface[];
+}
+
 export enum SpaceType {
     Property = "Property",
     Railroad = "Railroad",

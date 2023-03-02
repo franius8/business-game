@@ -1,12 +1,25 @@
 @import "src/variables";
 
+.utility {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
 .utility-icon {
   font-size: $iconSize;
   line-height: $iconSize;
-  padding: 0.3rem;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .utility-name {
+  font-size: $spaceFontSize;
+}
+
+.utility-price {
   font-size: $spaceFontSize;
 }
 
@@ -18,5 +31,17 @@
   }
   .utility-name {
     display: flex;
+    flex-direction: row-reverse;
   }
+  .utility-price {
+    display: flex;
+    height: 100%;
+    margin-top: auto;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+.space-container-left-horizontal .utility {
+  flex-direction: column;
 }
