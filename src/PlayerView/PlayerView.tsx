@@ -1,11 +1,22 @@
 import React from 'react'
 import './PlayerView.scss'
+import {PlayerInterface} from "../d";
 
-export default function PlayerView () {
-return (
-<div className="PlayerView">
-<h1>PlayerView</h1>
-</div>
-)
-}
+export default function PlayerView (props: { player: PlayerInterface }) {
+    const player = props.player;
+    return (
+        <div className="player-view">
+            <div className={"player-icon"}>
+                <player.pawn />
+            </div>
+            <div className={"player-main-div"}>
+                <div className={"player-name"}>
+                    <p>{player.name}</p>
+                </div>
+                <div className={"player-money"}>
+                    <p>${player.money}</p>
+                </div>
+            </div>
+        </div>
+)}
 
