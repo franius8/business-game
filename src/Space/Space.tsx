@@ -7,6 +7,7 @@ import Railroad from "./Railroad/Railroad";
 import Utility from "./Utility/Utility";
 import Tax from "./Tax/Tax";
 import {CommunityChest} from "./CommunityChest/CommunityChest";
+import {FaTractor} from "react-icons/all";
 
 export default function Space(props: { space: SpaceInterface,
     updateSelectedProperty: (space: SpaceInterface) => void }) {
@@ -41,9 +42,13 @@ export default function Space(props: { space: SpaceInterface,
     }
 
     return (
-        <div onClick={handleClick}>
+        <div onClick={handleClick} className={"space-outer-container"}>
             <div className={"space"}>
                 {spaceElement}
+            </div>
+            <div className={"pawn-container"}>
+                <div className={"pawn-grid"}>
+                </div>
             </div>
         </div>
     );

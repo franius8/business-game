@@ -7,7 +7,7 @@ touch src/"$name"/"$name".test.tsx
 touch src/"$name"/"$name".scss
 
 echo "import React from 'react'
-import '.$name.scss';
+import './$name.scss';
 
 export default function $name () {
   return (

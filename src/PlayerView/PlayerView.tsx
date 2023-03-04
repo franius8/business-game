@@ -6,7 +6,7 @@ export default function PlayerView (props: { player: PlayerInterface }) {
     const player = props.player;
     return (
         <div className="player-view">
-            <div className={"player-icon"} style={{borderColor: player.color}}>
+            <div className={"player-icon"} style={{borderColor: player.color, backgroundColor: player.color}}>
                 <player.pawn />
             </div>
             <div className={"player-main-div"}>

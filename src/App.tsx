@@ -4,7 +4,7 @@ import Board from "./Board/Board";
 import {GiWindowBars, GrUserPolice, TbArrowLeftTail, TbParking} from "react-icons/all";
 import SpaceView from "./SpaceView/SpaceView";
 import {SpaceInterface} from "./d";
-import PlayerView from "./PlayerView/PlayerView";
+import PlayerViewContainer from "./PlayerViewContainer/PlayerViewContainer";
 
 export default function App() {
   const corners = [1, 2, 3, 4];
@@ -19,7 +19,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <PlayerView player={{name: "Player 1", color: "red", pawn: GiWindowBars, money: 1500, position: 0, properties: []}} />
+      <PlayerViewContainer />
       <Board updateSelectedProperty={updateSelectedProperty} />
       <SpaceView space={selectedProperty} />
     </div>

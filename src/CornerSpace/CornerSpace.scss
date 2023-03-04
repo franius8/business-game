@@ -1,17 +1,49 @@
 @import "src/variables.scss";
 
 .corner-space {
+  height: 100%;
+  width: 100%;
   aspect-ratio: 1 / 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  display: grid;
+
   color: black;
   font-size: 2rem;
   background-color: $spaceBackgroundColor;
   &:hover {
     background-color: $spaceHoverColor;
     cursor: pointer;
+  }
+}
+
+.corner-space-main {
+  grid-area: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.pawn-container {
+  pointer-events: none;
+  grid-area:  1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  z-index: 5;
+
+  .pawn-grid {
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    grid-gap: 0.2rem;
+  }
+
+  .pawn-grid * {
+    background-color: $spaceBackgroundColor;
+    border-radius: 50%;
+    border: 1px solid black;
+    font-size: 0.8rem;
+    padding: 0.2rem;
   }
 }
 

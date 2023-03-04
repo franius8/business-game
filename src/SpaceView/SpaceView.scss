@@ -1,5 +1,9 @@
 @import "src/variables.scss";
 
+.space-outer-container {
+
+}
+
 .property-view {
   border: $borderColor solid 2px;
   border-radius: $standardRadius;
@@ -11,6 +15,7 @@
   height: 20.5rem;
   box-sizing: content-box;
   margin: 0;
+  box-shadow: $smallShadow;
 
   .color-stripe {
     height: 2rem;
