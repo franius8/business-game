@@ -1,0 +1,21 @@
+@import "../variables";
+
+.player-view {
+  display: flex;
+  flex-direction: row;
+}
+
+.player-icon {
+  z-index: 2;
+  aspect-ratio: 1 / 1;
+  border: 1px solid;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-main-div {
+   border: 1px solid black;
+   border-radius: $standardRadius;
+ }

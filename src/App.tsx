@@ -1,16 +1,12 @@
 import React from 'react'
 import './App.scss'
 import Board from "./Board/Board";
-import BoardSquare from "./BoardSquare/BoardSquare";
-import CornerSpace from "./CornerSpace/CornerSpace";
-import SpaceContainer from "./SpaceContainer/SpaceContainer";
-import Space from "./Space/Space";
 import {GiWindowBars, GrUserPolice, TbArrowLeftTail, TbParking} from "react-icons/all";
 import SpaceView from "./SpaceView/SpaceView";
 import {SpaceInterface} from "./d";
-import {bottomSpaces, cornerSpaces, leftSpaces, rightSpaces, topSpaces} from "./Spaces/spaces";
+import PlayerView from "./PlayerView/PlayerView";
 
-function App() {
+export default function App() {
   const corners = [1, 2, 3, 4];
   const cornerIcons = [<TbParking />, <GrUserPolice />, <GiWindowBars />, <TbArrowLeftTail />];
   const spaces = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -23,35 +19,9 @@ function App() {
 
   return (
     <div className="App">
-      <Board>
-          <BoardSquare />
-          {corners.map((corner, index) => (
-              <CornerSpace key={corner} corner={corner} space={cornerSpaces[index]} clickHandler={updateSelectedProperty} />
-            ))}
-          <SpaceContainer x={"left"} y={"vertical"}>
-              {spaces.map((space, index) => (
-                  <Space key={space} space={leftSpaces[index]} updateSelectedProperty={updateSelectedProperty} />
-                ))}
-          </SpaceContainer>
-          <SpaceContainer x={"right"} y={"vertical"}>
-              {spaces.map((space, index) => (
-                  <Space key={space} space={rightSpaces[index]} updateSelectedProperty={updateSelectedProperty} />
-              ))}
-          </SpaceContainer>
-          <SpaceContainer x={"left"} y={"horizontal"}>
-              {spaces.map((space, index) => (
-                  <Space key={space} space={topSpaces[index]} updateSelectedProperty={updateSelectedProperty} />
-              ))}
-          </SpaceContainer>
-          <SpaceContainer x={"right"} y={"horizontal"}>
-              {spaces.map((space, index) => (
-                  <Space key={space} space={bottomSpaces[index]} updateSelectedProperty={updateSelectedProperty} />
-              ))}
-          </SpaceContainer>
-      </Board>
-        <SpaceView space={selectedProperty} />
+      <PlayerView player={{name: "Player 1", color: "red", pawn: GiWindowBars, money: 1500, position: 0, properties: []}} />
+      <Board updateSelectedProperty={updateSelectedProperty} />
+      <SpaceView space={selectedProperty} />
     </div>
   )
 }
-
-export default App
