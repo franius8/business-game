@@ -1,0 +1,17 @@
+@import '../../../variables';
+
+.chance {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.space-container-right-vertical .chance {
+  transform: rotate(-90deg);
+}
+
+.chance-icon {
+  font-size: $iconSize;
+}
