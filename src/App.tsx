@@ -2,6 +2,7 @@ import React from 'react'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Game from "./Game";
 import NewGameForm from "./NewGameForm/NewGameForm";
+import {motion} from "framer-motion";
 
 const router = createBrowserRouter([
     {
@@ -16,8 +17,8 @@ const router = createBrowserRouter([
 
 export default function App() {
     return (
-        <div className="App">
+        <motion.div layout className="App">
             <RouterProvider router={router} />
-        </div>
+        </motion.div>
     )
 }
