@@ -3,7 +3,7 @@ import './Modal.scss';
 import { createPortal } from "react-dom";
 import {motion} from "framer-motion";
 
-export default function Modal (props: { close: () => void }) {
+export default function Modal (props: { close: () => void, children: React.ReactNode }) {
 
     const initialBackground = {opacity: 0};
     const animateBackground = {opacity: 1};
@@ -19,9 +19,7 @@ export default function Modal (props: { close: () => void }) {
                 <motion.div initial={initialBackground} animate={animateBackground} exit={exitBackground}
                             className={"blur"} onClick={props.close}>
                     <motion.div initial={initialModal} animate={animateModal} exit={exitModal} className={"modal"}>
-                        <h1>Modal</h1>
-                        <p>Modal content</p>
-                        <button onClick={props.close}>Close</button>
+                        {props.children}
                     </motion.div>
                 </motion.div>,
                 document.querySelector('#modal-root')!

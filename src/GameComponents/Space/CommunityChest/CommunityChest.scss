@@ -3,9 +3,7 @@
 .community-chest {
   height: 100%;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include centeredFlex;
 }
 
 .space-container-right-vertical .community-chest {

@@ -6,8 +6,7 @@
   grid-template-rows: repeat(13, 1fr);
   height: 85vh;
   background-color: black;
-  border: $borderColor solid 2px;
-  border-radius: $standardRadius;
+  @include blackBorder(2px);
   gap: 1px;
   aspect-ratio: 1 / 1;
   box-shadow: $smallShadow;

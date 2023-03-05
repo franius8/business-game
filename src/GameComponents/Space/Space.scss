@@ -31,9 +31,7 @@
 .pawn-container {
   pointer-events: none;
   grid-area:  1 / 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include centeredFlex;
   color: red;
   z-index: 5;
 

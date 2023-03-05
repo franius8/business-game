@@ -1,5 +1,38 @@
+@import '../variables.scss';
+
 .NewGameForm {
   h1 {
     margin-top: 0;
   }
+}
+
+.player-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+    margin-bottom: 1rem;
+    .player {
+        @include centeredFlex;
+        aspect-ratio: 1 / 1;
+        @include blackBorder(3px);
+        font-size: $iconSize;
+        cursor: pointer;
+    }
+}
+
+.player-info {
+    display: flex;
+}
+
+.icons-selection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+    div {
+        @include centeredFlex;
+        cursor: pointer;
+        @include blackBorder;
+        font-size: $iconSize;
+        padding: 1rem;
+    }
 }

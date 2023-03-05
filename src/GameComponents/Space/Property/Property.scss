@@ -1,11 +1,8 @@
 @import '../../../variables';
 
 .property {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include fullSize;
+  @include centeredFlex;
 }
 
 
@@ -17,7 +14,8 @@
   font-size: $spaceFontSize;
 }
 
-.space-container-horizontal {
+.space-container-left-horizontal,
+.space-container-right-horizontal {
   .property-name {
     display: grid;
     grid-template: auto / 1fr;
@@ -27,7 +25,8 @@
   }
 }
 
-.space-container-vertical {
+.space-container-left-vertical,
+.space-container-right-vertical {
   .property-name {
     display: flex;
   }

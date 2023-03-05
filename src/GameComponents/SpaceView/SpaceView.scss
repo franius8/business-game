@@ -19,9 +19,7 @@
 
   .color-stripe {
     height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include centeredFlex;
     text-transform: uppercase;
     padding: $standardPadding;
     font-weight: 600;
@@ -35,9 +33,7 @@
     .name {
         min-height: 3rem;
         margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include centeredFlex;
       p {
         margin: 0;
       }
@@ -50,9 +46,7 @@
   }
 
   .railroad-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include centeredFlex;
 
     &:first-child {
       font-size: 5rem;
@@ -79,9 +73,7 @@
   }
 
   .chance-icon, .tax-icon, .corner-space-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include centeredFlex;
     font-size: 5rem;
   }
 
@@ -91,7 +83,5 @@
 }
 
 .chance-view {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @include centeredFlex;
 }
