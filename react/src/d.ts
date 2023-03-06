@@ -54,7 +54,7 @@ export interface GoInterface extends CornertSpaceInterface {
 export interface PlayerInterface {
     name: string;
     color: string;
-    pawn: IconType;
+    pawn: string;
     position: number;
     money: number;
     properties: PurchaseableInterface[];

@@ -4,11 +4,6 @@ import Game from "./Game";
 import NewGameForm from "./NewGameForm/NewGameForm";
 import {motion} from "framer-motion";
 
-let currentPlayerIcons: (ReactElement | null)[] = [null, null, null, null];
-const setCurrentPlayerIcons = (icons: (ReactElement | null)[]) => {
-    currentPlayerIcons = icons;
-}
-
 const router = createBrowserRouter([
     {
         path: '/',
@@ -16,7 +11,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/new-game',
-        element: <NewGameForm currentPlayerIcons={currentPlayerIcons}  setCurrentPlayerIcons={setCurrentPlayerIcons} />
+        element: <NewGameForm />
     }
 ]);
 

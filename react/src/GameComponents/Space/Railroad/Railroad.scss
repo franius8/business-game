@@ -21,7 +21,8 @@
     font-size: $spaceFontSize;
 }
 
-.space-container-horizontal {
+.space-container-left-horizontal,
+.space-container-right-horizontal {
   .railroad, .railroad-name {
     flex-direction: column;
   }
@@ -30,7 +31,8 @@
   }
 }
 
-.space-container-vertical {
+.space-container-left-vertical,
+.space-container-right-vertical {
    .railroad-name {
     display: flex;
     flex-direction: row;

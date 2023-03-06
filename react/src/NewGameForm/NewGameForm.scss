@@ -21,18 +21,87 @@
 }
 
 .player-info {
-    display: flex;
+    @include centeredFlex;
+    flex-direction: column;
+    p {
+        margin-top: 0;
+    }
+    .player-info-icon {
+        color: black;
+        font-size: 4rem;
+        line-height: 4rem;
+    }
+}
+
+.error {
+    @include centeredFlex;
+    padding-top: 1rem;
+    gap: 0.5rem;
+    color: red;
+    font-weight: 600;
+    min-height: 0;
+    max-height: fit-content;
+    .error-icon {
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+    }
 }
 
 .icons-selection {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 1rem;
-    div {
+    .icon {
         @include centeredFlex;
         cursor: pointer;
         @include blackBorder;
         font-size: $iconSize;
         padding: 1rem;
+    }
+
+    .icon-disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background-color: lightgray;
+    }
+}
+
+.start-game-button {
+    padding: 1rem;
+    border: 3px solid red;
+    border-radius: $standardRadius;
+    cursor: pointer;
+    font-size: 1.5rem;
+    background-color: red;
+    font-weight: 600;
+    @include standardTransition;
+    &:hover {
+        background-color: white;
+        color: red;
+    }
+}
+
+.modal {
+    h2 {
+        margin-top: 0;
+    }
+    .remove-button-container {
+        @include centeredFlex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    .remove-button {
+        padding: 0.5rem 1rem;
+        border: 3px solid red;
+        color: white;
+        background-color: red;
+        cursor: pointer;
+        border-radius: $standardRadius;
+        @include centeredFlex;
+        @include standardTransition;
+        &:hover {
+            color: red;
+            background-color: white;
+        }
     }
 }
