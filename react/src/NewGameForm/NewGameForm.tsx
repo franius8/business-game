@@ -6,10 +6,10 @@ import {playerIcons} from "../PlayerAttributes/PlayerAttributes";
 import {FaPlus} from "react-icons/all";
 import {IconType} from "react-icons";
 
-export default function NewGameForm () {
+export default function NewGameForm (props: { currentPlayerIcons: (ReactElement | null)[], setCurrentPlayerIcons: (icons: (ReactElement | null)[]) => void }) {
 
+    const {currentPlayerIcons, setCurrentPlayerIcons} = props;
     const [modalVisible, setModalVisible] = React.useState<boolean>(false);
-    const [currentPlayerIcons, setCurrentPlayerIcons] = React.useState<(ReactElement | null)[]>([null, null, null, null]);
     const [index, setIndex] = React.useState<number>(0);
 
     const openModal = (index: number) => {
