@@ -1,14 +1,31 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './App.scss'
 import Board from "./GameComponents/Board/Board";
-import {GiWindowBars, GrUserPolice, TbArrowLeftTail, TbParking} from "react-icons/all";
 import SpaceView from "./GameComponents/SpaceView/SpaceView";
-import {SpaceInterface} from "./d";
+import {PlayerInterface, SpaceInterface} from "./d";
 import PlayerViewContainer from "./GameComponents/PlayerViewContainer/PlayerViewContainer";
+import {useParams} from "react-router-dom";
 
 export default function Game() {
 
   const [selectedProperty, setSelectedProperty] = React.useState<SpaceInterface | null>(null);
+  const [players, setPlayers] = React.useState<PlayerInterface[]>([]);
+
+  const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/getGame/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.text())
+    .then(data => {
+        const game = JSON.parse(data);
+        setPlayers(game.players);
+    })
+  }, [id]);
 
   const updateSelectedProperty = (space: SpaceInterface) => {
     setSelectedProperty(space);
@@ -16,7 +33,7 @@ export default function Game() {
 
   return (
     <div className="App">
-      <PlayerViewContainer />
+      <PlayerViewContainer players={players} />
       <Board updateSelectedProperty={updateSelectedProperty} />
       <SpaceView space={selectedProperty} />
     </div>

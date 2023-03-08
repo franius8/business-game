@@ -11,6 +11,10 @@ const PlayerSchema = new Schema({
         type: String,
         required: true
     },
+    pawn: {
+        type: String,
+        required: true
+    },
     position: {
         type: Number,
         required: true

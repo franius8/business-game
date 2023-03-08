@@ -8,6 +8,8 @@ const cors = require("cors");
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const testApi = require('./routes/testAPI');
+const startGame = require('./routes/startGame');
+const getGame = require('./routes/getGame');
 
 const app = express();
 
@@ -36,6 +38,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/testAPI', testApi);
+app.use('/startGame', startGame);
+app.use('/getGame', getGame);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

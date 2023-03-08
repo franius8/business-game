@@ -2,13 +2,16 @@ import React from 'react'
 import './PlayerViewContainer.scss';
 import {GiWindowBars} from "react-icons/all";
 import PlayerView from "../PlayerView/PlayerView";
+import {PlayerInterface} from "../../d";
 
-export default function PlayerViewContainer () {
+export default function PlayerViewContainer (props: {players: PlayerInterface[]}) {
   return (
     <div className="PlayerViewContainer">
-        <PlayerView player={{name: "Player 1", color: "red", pawn: GiWindowBars, money: 1500, position: 0, properties: []}} />
-        <PlayerView player={{name: "Player 1", color: "red", pawn: GiWindowBars, money: 1500, position: 0, properties: []}} />
-        <PlayerView player={{name: "Player 1", color: "red", pawn: GiWindowBars, money: 1500, position: 0, properties: []}} />
+        {props.players.map((player, index) => {
+            return (
+                <PlayerView key={index} player={player} />
+            )}
+        )}
     </div>
   )
 }

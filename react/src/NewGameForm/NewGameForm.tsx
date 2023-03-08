@@ -6,6 +6,7 @@ import {playerIcons} from "../PlayerAttributes/PlayerIcons";
 import {FaPlus, RiErrorWarningLine} from "react-icons/all";
 import GenerateIcon from "../GenerateIcon/GenerateIcon";
 import {PlayerInterface} from "../d";
+import {useNavigate} from "react-router-dom";
 
 export default function NewGameForm () {
 
@@ -14,11 +15,7 @@ export default function NewGameForm () {
     const [index, setIndex] = React.useState<number>(0);
     const [error, setError] = React.useState<string | null>(null);
 
-    const fetchTest = () => {
-        fetch('http://localhost:3000/testAPI')
-            .then(response => response.text())
-            .then(data => console.log(data))
-    }
+    const navigate = useNavigate();
 
     const openModal = (index: number) => {
         setModalVisible(true);
@@ -64,6 +61,7 @@ export default function NewGameForm () {
                 })
             }
         })
+        let game_id = "";
         fetch('http://localhost:3000/startGame', {
             method: 'POST',
             headers: {
@@ -71,8 +69,9 @@ export default function NewGameForm () {
             },
             body: JSON.stringify(players)
         })
-            .then(response => response.json())
-            .then(data => console.log(data))
+            .then(response => response.text())
+            .then(text => game_id = text)
+            .then(() => navigate(`/game/${game_id}`))
     }
 
       return (

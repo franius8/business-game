@@ -1,13 +1,14 @@
 import React from 'react'
 import './PlayerView.scss'
 import {PlayerInterface} from "../../d";
+import GenerateIcon from "../../GenerateIcon/GenerateIcon";
 
 export default function PlayerView (props: { player: PlayerInterface }) {
     const player = props.player;
     return (
         <div className="player-view">
             <div className={"player-icon"} style={{borderColor: player.color, backgroundColor: player.color}}>
-                <player.pawn />
+                <GenerateIcon icon={player.pawn} />
             </div>
             <div className={"player-main-div"}>
                 <div className={"player-name"}>
