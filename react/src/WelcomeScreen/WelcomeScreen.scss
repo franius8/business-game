@@ -1,0 +1,6 @@
+@import "./src/variables.scss";
+
+.new-game-button {
+  @include standardButton;
+  @include colorWhiteButton(red);
+}

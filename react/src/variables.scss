@@ -37,3 +37,21 @@ $smallShadow: 2px 2px 0.3rem 0.3rem rgba(0, 0, 0, 0.1);
 @mixin standardTransition {
     transition: all 0.2s ease-in-out;
 }
+
+@mixin standardButton {
+    padding: 1rem;
+    border-radius: $standardRadius;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 600;
+    @include standardTransition;
+}
+
+@mixin colorWhiteButton($color: red) {
+    border: 3px solid $color;
+    background-color: $color;
+    &:hover {
+        background-color: white;
+        color: $color;
+    }
+}

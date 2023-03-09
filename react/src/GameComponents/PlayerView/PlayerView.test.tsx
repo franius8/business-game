@@ -24,7 +24,7 @@ it("renders the player name", () => {
     const testPlayer:PlayerInterface = {
         name: "test",
         color: "red",
-        pawn: TbRainbow,
+        pawn: "TbRainbow",
         position: 0,
         money: 1500,
         properties: []

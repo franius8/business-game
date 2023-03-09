@@ -13,10 +13,12 @@ import {GiTap, GiWindowBars, GrUserPolice, ImPower, TbArrowLeftTail, TbParking} 
 
 export const topSpaces: SpaceInterface[] = [
     {
+        id: 29,
         type: SpaceType.Property,
         property: yellowProperties[2],
     },
     {
+        id: 28,
         type: SpaceType.Utility,
         utility: {
             name: "Water Works",
@@ -26,14 +28,17 @@ export const topSpaces: SpaceInterface[] = [
         }
     },
     {
+        id: 27,
         type: SpaceType.Property,
         property: yellowProperties[1],
     },
     {
+        id: 26,
         type: SpaceType.Property,
         property: yellowProperties[2],
     },
     {
+        id: 25,
         type: SpaceType.Railroad,
         railroad: {
             name: "B & O. Railroad",
@@ -43,17 +48,21 @@ export const topSpaces: SpaceInterface[] = [
         }
     },
     {
+        id: 24,
         type: SpaceType.Property,
         property: redProperties[2],
     },
     {
+        id: 23,
         type: SpaceType.Property,
         property: redProperties[1],
     },
     {
+        id: 22,
         type: SpaceType.Chance,
     },
     {
+        id: 21,
         type: SpaceType.Property,
         property: redProperties[0],
     },
@@ -61,21 +70,26 @@ export const topSpaces: SpaceInterface[] = [
 
 export const rightSpaces: SpaceInterface[] = [
     {
+        id: 31,
         type: SpaceType.Property,
         property: greenProperties[0],
     },
     {
+        id: 32,
         type: SpaceType.Property,
         property: greenProperties[1],
     },
     {
+        id: 33,
         type: SpaceType.CommunityChest,
     },
     {
+        id: 34,
         type: SpaceType.Property,
         property: greenProperties[2],
     },
     {
+        id: 35,
         type: SpaceType.Railroad,
         railroad: {
             name: "Short Line",
@@ -85,13 +99,16 @@ export const rightSpaces: SpaceInterface[] = [
         }
     },
     {
+        id: 36,
         type: SpaceType.Chance,
     },
     {
+        id: 37,
         type: SpaceType.Property,
         property: darkBlueProperties[1],
     },
     {
+        id: 38,
         type: SpaceType.Tax,
         tax: {
             name: "Luxury Tax",
@@ -99,6 +116,7 @@ export const rightSpaces: SpaceInterface[] = [
         }
     },
     {
+        id: 39,
         type: SpaceType.Property,
         property: darkBlueProperties[0],
     }
@@ -106,21 +124,26 @@ export const rightSpaces: SpaceInterface[] = [
 
 export const bottomSpaces: SpaceInterface[] = [
     {
+        id: 9,
         type: SpaceType.Property,
         property: lightBlueProperties[2],
     },
     {
+        id: 8,
         type: SpaceType.Property,
         property: lightBlueProperties[1],
     },
     {
+        id: 7,
         type: SpaceType.Chance
     },
     {
+        id: 6,
         type: SpaceType.Property,
         property: lightBlueProperties[0],
     },
     {
+        id: 5,
         type: SpaceType.Railroad,
         railroad: {
             name: "Pennsylvania Railroad",
@@ -130,6 +153,7 @@ export const bottomSpaces: SpaceInterface[] = [
         }
     },
     {
+        id: 4,
         type: SpaceType.Tax,
         tax: {
             name: "Income Tax",
@@ -137,13 +161,16 @@ export const bottomSpaces: SpaceInterface[] = [
         }
     },
     {
+        id: 3,
         type: SpaceType.Property,
         property: brownProperties[1],
     },
     {
+        id: 2,
         type: SpaceType.CommunityChest,
     },
     {
+        id: 1,
         type: SpaceType.Property,
         property: brownProperties[0],
     }
@@ -151,21 +178,26 @@ export const bottomSpaces: SpaceInterface[] = [
 
 export const leftSpaces: SpaceInterface[] = [
     {
+        id: 19,
         type: SpaceType.Property,
         property: orangeProperties[2],
     },
     {
+        id: 18,
         type: SpaceType.Property,
         property: orangeProperties[1],
     },
     {
+        id: 17,
         type: SpaceType.CommunityChest,
     },
     {
+        id: 16,
         type: SpaceType.Property,
         property: orangeProperties[0],
     },
     {
+        id: 15,
         type: SpaceType.Railroad,
         railroad: {
             name: "Reading Railroad",
@@ -175,14 +207,17 @@ export const leftSpaces: SpaceInterface[] = [
         }
     },
     {
+        id: 14,
         type: SpaceType.Property,
         property: pinkProperties[2],
     },
     {
+        id: 13,
         type: SpaceType.Property,
         property: pinkProperties[1],
     },
     {
+        id: 12,
         type: SpaceType.Utility,
         utility: {
             name: "Electric Company",
@@ -192,6 +227,7 @@ export const leftSpaces: SpaceInterface[] = [
         }
     },
     {
+        id: 11,
         type: SpaceType.Property,
         property: pinkProperties[0],
     }
@@ -199,6 +235,7 @@ export const leftSpaces: SpaceInterface[] = [
 
 export const cornerSpaces: SpaceInterface[] = [
     {
+        id: 20,
         type: SpaceType.CornerSpace,
         cornerSpace: {
             name: "Free Parking",
@@ -208,6 +245,7 @@ export const cornerSpaces: SpaceInterface[] = [
         }
     },
     {
+        id: 30,
         type: SpaceType.CornerSpace,
         cornerSpace: {
             name: "Go To Jail",
@@ -217,6 +255,7 @@ export const cornerSpaces: SpaceInterface[] = [
         }
     },
     {
+        id: 10,
         type: SpaceType.CornerSpace,
         cornerSpace: {
             name: "Jail",
@@ -226,6 +265,7 @@ export const cornerSpaces: SpaceInterface[] = [
         }
     },
     {
+        id: 0,
         type: SpaceType.CornerSpace,
         cornerSpace: {
             name: "Go",

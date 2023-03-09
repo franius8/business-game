@@ -1,0 +1,26 @@
+@import '../variables.scss';
+
+.modal {
+  h2 {
+    margin-top: 0;
+  }
+  .remove-button-container {
+    @include centeredFlex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .remove-button {
+    padding: 0.5rem 1rem;
+    border: 3px solid red;
+    color: white;
+    background-color: red;
+    cursor: pointer;
+    border-radius: $standardRadius;
+    @include centeredFlex;
+    @include standardTransition;
+    &:hover {
+      color: red;
+      background-color: white;
+    }
+  }
+}

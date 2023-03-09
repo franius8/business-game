@@ -1,6 +1,7 @@
 import {IconType} from "react-icons";
 
 export interface SpaceInterface {
+    id: number;
     type: SpaceType;
     property?: PropertyInterface;
     railroad?: RailroadInterface;

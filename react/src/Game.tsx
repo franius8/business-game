@@ -34,7 +34,7 @@ export default function Game() {
   return (
     <div className="App">
       <PlayerViewContainer players={players} />
-      <Board updateSelectedProperty={updateSelectedProperty} />
+      <Board updateSelectedProperty={updateSelectedProperty} players={players}/>
       <SpaceView space={selectedProperty} />
     </div>
   )

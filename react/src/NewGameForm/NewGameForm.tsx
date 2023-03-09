@@ -1,12 +1,10 @@
-import React, {MouseEventHandler, ReactElement, useEffect} from 'react'
+import React from 'react'
 import './NewGameForm.scss';
-import Modal from "../Modal/Modal";
-import {AnimatePresence} from "framer-motion";
-import {playerIcons} from "../PlayerAttributes/PlayerIcons";
-import {FaPlus, RiErrorWarningLine} from "react-icons/all";
+import {FaPlus} from "react-icons/all";
 import GenerateIcon from "../GenerateIcon/GenerateIcon";
 import {PlayerInterface} from "../d";
 import {useNavigate} from "react-router-dom";
+import NewGameFormModal from "../NewGameFormModal/NewGameFormModal";
 
 export default function NewGameForm () {
 
@@ -14,8 +12,10 @@ export default function NewGameForm () {
     const [modalVisible, setModalVisible] = React.useState<boolean>(false);
     const [index, setIndex] = React.useState<number>(0);
     const [error, setError] = React.useState<string | null>(null);
+    const [selectedColor, setSelectedColor] = React.useState<(number | null)[]>([null, null, null, null]);
 
     const navigate = useNavigate();
+    const colors = ["red", "aqua", "green", "orange", "purple"];
 
     const openModal = (index: number) => {
         setModalVisible(true);
@@ -40,6 +40,13 @@ export default function NewGameForm () {
         closeModal();
     }
 
+    const selectColor = (e: React.MouseEvent<HTMLDivElement>, colorIndex: number) => {
+        e.stopPropagation();
+        const newSelectedColor = [...selectedColor];
+        newSelectedColor[index] = colorIndex;
+        setSelectedColor(newSelectedColor);
+    }
+
     const removePlayer = () => {
         const newCurrentPlayerIcons = [...currentPlayerIcons];
         newCurrentPlayerIcons[index] = null;
@@ -57,7 +64,7 @@ export default function NewGameForm () {
                     properties: [],
                     pawn: icon!,
                     name: `Player ${index + 1}`,
-                    color: "red"
+                    color: colors[selectedColor[index] || 0]
                 })
             }
         })
@@ -84,7 +91,16 @@ export default function NewGameForm () {
                             ?
                             <div className={"player-info"}>
                                 <p>Player {index + 1}</p>
-                                <div className={"player-info-icon"}><GenerateIcon icon={playerNumber} /></div>
+                                <div className={"player-info-icon"} style={{color: colors[selectedColor[index] || 0]}}>
+                                    <GenerateIcon icon={playerNumber} />
+                                </div>
+                                <div className={"color-picker"}>
+                                    {colors.map((color, index2) => (
+                                        <div className={selectedColor[index] == index2 ? "selected" : ""}
+                                             style={{backgroundColor: color}} key={index2}
+                                             onClick={(e) => selectColor(e, index2)} />
+                                    ))}
+                                </div>
                             </div>
                             :
                             <FaPlus/>}
@@ -92,39 +108,8 @@ export default function NewGameForm () {
                 ))}
             </div>
             <button className={"start-game-button"} onClick={startGame}>Start game</button>
-            <AnimatePresence>
-                {modalVisible &&
-                    <Modal close={closeModal}>
-                        <h2>Select icon</h2>
-                        <div className="icons-selection">
-                            {playerIcons.map((Icon, index) => (
-                                !currentPlayerIcons.includes(Icon) ?
-                                <div className="icon" key={index}
-                                     onClick={(e) => selectIcon(e, Icon)}>
-                                    <GenerateIcon icon={Icon} />
-                                </div>
-                                    :
-                                <div className="icon icon-disabled" key={index}
-                                     onClick={(e) => selectIcon(e, Icon)}>
-                                    <GenerateIcon icon={Icon} />
-                                </div>
-                            ))}
-                        </div>
-                        {currentPlayerIcons[index] &&
-                            <div className={"remove-button-container"}>
-                                <button className={"remove-button"} onClick={removePlayer}>Remove player</button>
-                            </div>
-                        }
-                        <div className="error">{
-                            error &&
-                            <>
-                                <div className={"error-icon"}><RiErrorWarningLine /></div>
-                                    {error}
-                            </>
-                        }</div>
-                    </Modal>
-                }
-            </AnimatePresence>
+            <NewGameFormModal closeModal={closeModal} currentPlayerIcons={currentPlayerIcons} error={error} index={index}
+                              removePlayer={removePlayer} modalVisible={modalVisible} selectIcon={selectIcon}/>
         </div>
       )
 }

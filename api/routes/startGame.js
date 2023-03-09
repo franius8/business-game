@@ -5,7 +5,8 @@ router.post('/', function(req, res, next) {
     const Game = require("../models/game");
     const players = req.body
     const game = new Game({
-        players: players
+        players: players,
+        gameLog: []
     });
     let id;
     game.save().then(result => {

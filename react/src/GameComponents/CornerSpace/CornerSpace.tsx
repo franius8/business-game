@@ -1,20 +1,28 @@
 import React from "react";
 import "./CornerSpace.scss";
-import {SpaceInterface} from "../../d";
+import {PlayerInterface, SpaceInterface} from "../../d";
 import {IconType} from "react-icons";
+import GenerateIcon from "../../GenerateIcon/GenerateIcon";
 
 interface CornerSpaceProps {
     corner: number,
     space: SpaceInterface,
     clickHandler: (space: SpaceInterface) => void,
-    pawns?: IconType[]
+    players: PlayerInterface[]
 }
 
-export default function CornerSpace( { corner, space, clickHandler, pawns = []}: CornerSpaceProps ) {
+export default function CornerSpace( { corner, space, clickHandler, players}: CornerSpaceProps ) {
 
     const handleClick = () => {
         clickHandler(space);
     }
+
+    const positions: number[] = []
+    players.forEach((player, index) => {
+        if (player.position === space.id) {
+            positions.push(player.position)
+        }
+    })
 
     const cornerSpace = space.cornerSpace!;
 
@@ -30,6 +38,13 @@ export default function CornerSpace( { corner, space, clickHandler, pawns = []}:
             </div>
             <div className={"pawn-container"}>
                 <div className={"pawn-grid"}>
+                    {positions.map((position, index) => (
+                        position == space.id ?
+                        <div style={{color: players[index].color}} key={index}>
+                            <GenerateIcon icon={players[index].pawn} />
+                        </div>
+                            : null
+                    ))}
                 </div>
             </div>
         </div>

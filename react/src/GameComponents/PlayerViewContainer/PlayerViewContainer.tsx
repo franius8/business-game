@@ -1,8 +1,8 @@
 import React from 'react'
 import './PlayerViewContainer.scss';
-import {GiWindowBars} from "react-icons/all";
 import PlayerView from "../PlayerView/PlayerView";
 import {PlayerInterface} from "../../d";
+import DiceThrowModal from "../DiceThrowModal/DiceThrowModal";
 
 export default function PlayerViewContainer (props: {players: PlayerInterface[]}) {
   return (
@@ -12,6 +12,7 @@ export default function PlayerViewContainer (props: {players: PlayerInterface[]}
                 <PlayerView key={index} player={player} />
             )}
         )}
+      <DiceThrowModal modalVisible={true} closeModal={() => {} }/>
     </div>
   )
 }

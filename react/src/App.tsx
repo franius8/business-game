@@ -3,6 +3,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Game from "./Game";
 import NewGameForm from "./NewGameForm/NewGameForm";
 import {motion} from "framer-motion";
+import WelcomeScreen from "./WelcomeScreen/WelcomeScreen";
 
 const router = createBrowserRouter([
     {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
     {
         path: '/new-game',
         element: <NewGameForm />
+    },
+    {
+        path: '/',
+        element: <WelcomeScreen />
     }
 ]);
 

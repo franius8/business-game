@@ -7,6 +7,10 @@ const GameSchema = new Schema({
         type: Array,
         required: true
     },
+    gameLog: {
+        type: Array,
+        required: true
+    }
 });
 
 module.exports = mongoose.model("game", GameSchema);

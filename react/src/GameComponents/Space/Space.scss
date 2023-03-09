@@ -41,7 +41,7 @@
     grid-gap: 0.2rem;
   }
 
-  .pawn-grid * {
+  .pawn-grid div * {
     background-color: $spaceBackgroundColor;
     border-radius: 50%;
     border: 1px solid black;
