@@ -3,7 +3,8 @@ import './DiceThrowModal.scss';
 import {AnimatePresence} from "framer-motion";
 import Modal from "../../Modal/Modal";
 
-export default function DiceThrowModal (props: {modalVisible: boolean, closeModal: () => void}) {
+export default function DiceThrowModal (props: {modalVisible: boolean, closeModal: () => void,
+    setDiceValues: (dices: [number, number]) => void}) {
 
     const [dice1, setDice1] = React.useState(1);
     const [dice2, setDice2] = React.useState(1);
@@ -28,6 +29,8 @@ export default function DiceThrowModal (props: {modalVisible: boolean, closeModa
             setDice2(dice2);
             setThrowFinished(true);
             setThrowing(false);
+            props.setDiceValues([dice1, dice2]);
+            props.closeModal();
         }, 1000)
     }
 
@@ -91,7 +94,7 @@ export default function DiceThrowModal (props: {modalVisible: boolean, closeModa
     <AnimatePresence>
         {props.modalVisible &&
             <Modal close={props.closeModal}>
-                <h2>Throw dice</h2>
+                <h2 className={"dice-throw-heading"}>Throw dice</h2>
                 <div className="dice-container">
                     {generateDiceDiv(dice1)}
                     {generateDiceDiv(dice2)}

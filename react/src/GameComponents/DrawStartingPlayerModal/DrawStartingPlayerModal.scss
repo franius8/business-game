@@ -1,0 +1,22 @@
+@import "../src/variables.scss";
+
+.DrawStartingPlayerModal {
+    text-align: center;
+}
+
+.draw-button-container {
+    @include centeredFlex;
+    gap: 1rem;
+}
+
+.draw-button {
+    @include standardButton;
+    @include colorWhiteButton(red);
+    padding: 0.5rem 1rem;
+}
+
+.close-button {
+    @include standardButton;
+    @include colorWhiteButton(gray);
+    padding: 0.5rem 1rem;
+}

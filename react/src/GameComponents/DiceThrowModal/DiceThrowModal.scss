@@ -1,5 +1,9 @@
 @import "../src/variables.scss";
 
+.dice-throw-heading {
+  text-align: center;
+}
+
 .dice-container {
   @include centeredFlex;
   gap: 1rem;

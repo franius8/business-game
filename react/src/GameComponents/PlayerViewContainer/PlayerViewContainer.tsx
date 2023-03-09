@@ -12,7 +12,6 @@ export default function PlayerViewContainer (props: {players: PlayerInterface[]}
                 <PlayerView key={index} player={player} />
             )}
         )}
-      <DiceThrowModal modalVisible={true} closeModal={() => {} }/>
     </div>
   )
 }
