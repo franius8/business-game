@@ -11,7 +11,7 @@ import Space from "../Space/Space";
 export default function Board(props: { updateSelectedProperty: (space: SpaceInterface) => void, players: PlayerInterface[] }) {
     const updateSelectedProperty = props.updateSelectedProperty;
     const corners = [1, 2, 3, 4];
-    const cornerIcons = [<TbParking />, <GrUserPolice />, <GiWindowBars />, <TbArrowLeftTail />];
+
     const spaces = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     return (

@@ -1,6 +1,5 @@
 import React from "react";
 import "./Utility.scss";
-import {GiTap} from "react-icons/all";
 import {UtilityInterface} from "../../../d";
 
 export default function Utility(props: { utility: UtilityInterface }) {

@@ -1,7 +1,6 @@
 import React from "react";
 import "./CornerSpace.scss";
 import {PlayerInterface, SpaceInterface} from "../../d";
-import {IconType} from "react-icons";
 import GenerateIcon from "../../GenerateIcon/GenerateIcon";
 
 interface CornerSpaceProps {
@@ -18,7 +17,7 @@ export default function CornerSpace( { corner, space, clickHandler, players}: Co
     }
 
     const positions: number[] = []
-    players.forEach((player, index) => {
+    players.forEach((player) => {
         if (player.position === space.id) {
             positions.push(player.position)
         }

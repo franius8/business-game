@@ -47,14 +47,22 @@ export default function Game() {
   }, [id]);
 
   useEffect(() => {
-    if (currentPlayer) {
-      console.log(currentPlayer);
+    if (currentPlayer && !startingPlayerModalOpen) {
+      handleDiceThrow();
     }
   }, [currentPlayer]);
 
   useEffect(() => {
       if (currentPlayer) {
-          console.log(diceValues)
+          handleDiceThrow();
+      }
+  }, [startingPlayerModalOpen]);
+
+  useEffect(() => {
+      if (currentPlayer) {
+          const position = currentPlayer.position;
+          const is_double = diceValues[0] === diceValues[1];
+          currentPlayer.position = position + diceValues[0] + diceValues[1] % 40;
       }
   }, [diceValues]);
 

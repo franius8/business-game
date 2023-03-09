@@ -27,7 +27,7 @@ export default function DrawStartingPlayerModal (props:
                     {!drawn ?
                         <button className={"draw-button"} onClick={drawStartingPlayer}>Draw</button>
                         :
-                        <button className={"close-button"}>Close</button>
+                        <button className={"close-button"} onClick={props.closeModal}>Close</button>
                     }
                   </div>
                 </div>

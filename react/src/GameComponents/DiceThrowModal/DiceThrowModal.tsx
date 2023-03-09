@@ -30,7 +30,6 @@ export default function DiceThrowModal (props: {modalVisible: boolean, closeModa
             setThrowFinished(true);
             setThrowing(false);
             props.setDiceValues([dice1, dice2]);
-            props.closeModal();
         }, 1000)
     }
 
@@ -93,7 +92,7 @@ export default function DiceThrowModal (props: {modalVisible: boolean, closeModa
   return (
     <AnimatePresence>
         {props.modalVisible &&
-            <Modal close={props.closeModal}>
+            <Modal close={() => {}}>
                 <h2 className={"dice-throw-heading"}>Throw dice</h2>
                 <div className="dice-container">
                     {generateDiceDiv(dice1)}
