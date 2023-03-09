@@ -5,8 +5,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require("cors");
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const testApi = require('./routes/testAPI');
 const startGame = require('./routes/startGame');
 const getGame = require('./routes/getGame');
@@ -35,8 +33,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/testAPI', testApi);
 app.use('/startGame', startGame);
 app.use('/getGame', getGame);
@@ -54,7 +50,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send('error');
 });
 
 module.exports = app;

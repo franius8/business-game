@@ -21,9 +21,6 @@ export default function Game() {
 
   const handleDiceThrow = () => {
     setDiceModalOpen(true);
-    while (diceModalOpen) {
-    }
-
   }
 
   const closeDiceModal = () => {
@@ -54,6 +51,12 @@ export default function Game() {
       console.log(currentPlayer);
     }
   }, [currentPlayer]);
+
+  useEffect(() => {
+      if (currentPlayer) {
+          console.log(diceValues)
+      }
+  }, [diceValues]);
 
   const updateSelectedProperty = (space: SpaceInterface) => {
     setSelectedProperty(space);
