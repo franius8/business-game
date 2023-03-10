@@ -1,5 +1,7 @@
 import {IconType} from "react-icons";
 
+type LogEntryType = [string, number, number, number[]]
+
 export interface SpaceInterface {
     id: number;
     type: SpaceType;

@@ -1,6 +1,6 @@
-import React, {ReactNode} from "react";
+import React, {ReactNode, useEffect, useState} from "react";
 import "./Space.scss";
-import {SpaceInterface, SpaceType} from "../../d";
+import {PlayerInterface, SpaceInterface, SpaceType} from "../../d";
 import {Property} from "./Property/Property";
 import {Chance} from "./Chance/Chance";
 import Railroad from "./Railroad/Railroad";
@@ -9,19 +9,31 @@ import Tax from "./Tax/Tax";
 import {CommunityChest} from "./CommunityChest/CommunityChest";
 import {IconType} from "react-icons";
 import Pawn from "../Pawn/Pawn";
+import GenerateIcon from "../../GenerateIcon/GenerateIcon";
 
 interface SpaceProps {
     space: SpaceInterface,
     updateSelectedProperty: (space: SpaceInterface) => void
-    pawns?: IconType[],
-    owner?: number
+    players: PlayerInterface[],
+    owner?: number,
+    turnCount: number
 }
 
-export default function Space( { space, updateSelectedProperty, pawns = [] }: SpaceProps ) {
+export default function Space( { space, updateSelectedProperty, players, turnCount }: SpaceProps ) {
+
+    const [positions, setPositions] = useState<number[]>([]);
 
     const handleClick = () => {
         updateSelectedProperty(space);
     }
+
+    useEffect(() => {
+        const newPositions: number[] = [];
+        players.forEach((player) => {
+            newPositions.push(player.position)
+        })
+        setPositions(newPositions);
+    }, [turnCount])
 
     let spaceElement: ReactNode;
 
@@ -55,10 +67,13 @@ export default function Space( { space, updateSelectedProperty, pawns = [] }: Sp
             </div>
             <div className={"pawn-container"}>
                 <div className={"pawn-grid"}>
-                    {pawns.map((pawn, index) => {
-                        return <Pawn pawn={pawn} key={index} />
-                    })
-                    }
+                    {positions.map((position, index) => (
+                        position == space.id ?
+                            <div style={{color: players[index].color}} key={index}>
+                                <GenerateIcon icon={players[index].pawn} />
+                            </div>
+                            : null
+                    ))}
                 </div>
             </div>
         </div>

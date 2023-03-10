@@ -7,8 +7,16 @@ const GameSchema = new Schema({
         type: Array,
         required: true
     },
-    gameLog: {
-        type: Array,
+    turn: {
+        type: Number,
+        required: true
+    },
+    currentPlayer: {
+        type: Number,
+        required: true
+    },
+    gameLogId: {
+        type: String,
         required: true
     }
 });

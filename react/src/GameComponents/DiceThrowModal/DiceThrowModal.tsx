@@ -33,6 +33,11 @@ export default function DiceThrowModal (props: {modalVisible: boolean, closeModa
         }, 1000)
     }
 
+    const closeModal = () => {
+        props.closeModal();
+        setThrowFinished(false);
+    }
+
     const generateDiceDiv = (dice: number) => {
         switch (dice) {
             case 1:
@@ -103,7 +108,7 @@ export default function DiceThrowModal (props: {modalVisible: boolean, closeModa
                         <button className={`throw-dice-button ${throwing ? "dice-disabled" : ""}`}
                                 onClick={generateDiceThrowAnimation}>Throw</button>
                         :
-                        <button className={"throw-dice-button"} onClick={props.closeModal}>Close</button>
+                        <button className={"throw-dice-button"} onClick={closeModal}>Close</button>
                     }
                 </div>
             </Modal>}

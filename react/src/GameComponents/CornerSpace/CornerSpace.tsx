@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./CornerSpace.scss";
 import {PlayerInterface, SpaceInterface} from "../../d";
 import GenerateIcon from "../../GenerateIcon/GenerateIcon";
@@ -7,21 +7,25 @@ interface CornerSpaceProps {
     corner: number,
     space: SpaceInterface,
     clickHandler: (space: SpaceInterface) => void,
-    players: PlayerInterface[]
+    players: PlayerInterface[],
+    turnCount: number
 }
 
-export default function CornerSpace( { corner, space, clickHandler, players}: CornerSpaceProps ) {
+export default function CornerSpace( { corner, space, clickHandler, players, turnCount}: CornerSpaceProps ) {
+
+    const [positions, setPositions] = useState<number[]>([]);
 
     const handleClick = () => {
         clickHandler(space);
     }
 
-    const positions: number[] = []
-    players.forEach((player) => {
-        if (player.position === space.id) {
-            positions.push(player.position)
-        }
-    })
+    useEffect(() => {
+        const newPositions: number[] = [];
+        players.forEach((player) => {
+            newPositions.push(player.position)
+        })
+        setPositions(newPositions);
+    }, [turnCount])
 
     const cornerSpace = space.cornerSpace!;
 
