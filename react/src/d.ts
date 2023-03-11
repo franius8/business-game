@@ -2,6 +2,20 @@ import {IconType} from "react-icons";
 
 type LogEntryType = [string, number, number, number[]]
 
+export interface CommunityChestCardInterface {
+    id: number;
+    text: string;
+    action: CommunityChestCardActionType;
+    amount?: number;
+}
+
+export interface ChanceCardInterface {
+    id: number;
+    text: string;
+    action: ChanceCardActionType;
+    amount?: number;
+}
+
 export interface SpaceInterface {
     id: number;
     type: SpaceType;
@@ -16,6 +30,7 @@ export interface PurchaseableInterface {
     name: string;
     price: number;
     mortgage: number;
+    owner?: PlayerInterface;
 }
 
 export interface CornertSpaceInterface {
@@ -61,6 +76,32 @@ export interface PlayerInterface {
     position: number;
     money: number;
     properties: PurchaseableInterface[];
+}
+
+export enum CommunityChestCardActionType {
+    AdvanceToGo = "advanceToGo",
+    GoToJail = "goToJail",
+    CollectFromBank = "collectFromBank",
+    PayBank = "payBank",
+    GetOutOfJailFree = "getOutOfJailFree",
+}
+
+export enum ChanceCardActionType {
+    AdvanceToGo = "advanceToGo",
+    AdvanceToIllinoisAvenue = "advanceToIllinoisAvenue",
+    AdvanceToStCharlesPlace = "advanceToStCharlesPlace",
+    AdvanceToNearestUtility = "advanceToNearestUtility",
+    AdvanceToNearestRailroad = "advanceToNearestRailroad",
+    AdvanceToReadingRailroad = "advanceToReadingRailroad",
+    AdvanceToBoardwalk = "advanceToBoardwalk",
+    GoBackThreeSpaces = "goBackThreeSpaces",
+    GoToJail = "goToJail",
+    CollectFromBank = "collectFromBank",
+    PayBank = "payBank",
+    GetOutOfJailFree = "getOutOfJailFree",
+    MakeGeneralRepairs = "makeGeneralRepairs",
+    MakeStreetRepairs = "makeStreetRepairs",
+    PayEachPlayer = "payEachPlayer",
 }
 
 export enum SpaceType {

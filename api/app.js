@@ -9,6 +9,7 @@ const testApi = require('./routes/testAPI');
 const startGame = require('./routes/startGame');
 const getGame = require('./routes/getGame');
 const gameLogger = require('./routes/gameLogger');
+const throwDice = require('./routes/throwDice');
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use('/testAPI', testApi);
 app.use('/startGame', startGame);
 app.use('/getGame', getGame);
 app.use('/gameLogger', gameLogger);
+app.use('/throwDice', throwDice);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

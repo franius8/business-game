@@ -11,12 +11,6 @@ export default function DiceThrowModal (props: {modalVisible: boolean, closeModa
     const [throwing, setThrowing] = React.useState(false);
     const [throwFinished, setThrowFinished] = React.useState(false);
 
-    const generateDiceThrow = () => {
-        const dice1 = Math.floor(Math.random() * 6) + 1;
-        const dice2 = Math.floor(Math.random() * 6) + 1;
-        return [dice1, dice2];
-    }
-
     const generateDiceThrowAnimation = () => {
         setThrowing(true);
         const dice1 = Math.floor(Math.random() * 6) + 1;
@@ -24,12 +18,15 @@ export default function DiceThrowModal (props: {modalVisible: boolean, closeModa
         setDice1(dice1);
         setDice2(dice2);
         setTimeout(() => {
-            const [dice1, dice2] = generateDiceThrow();
-            setDice1(dice1);
-            setDice2(dice2);
-            setThrowFinished(true);
-            setThrowing(false);
-            props.setDiceValues([dice1, dice2]);
+            fetch('http://localhost:3000/throwDice')
+                .then(response => response.json())
+                .then(data => {
+                    setDice1(data.dice1);
+                    setDice2(data.dice2);
+                    setThrowFinished(true);
+                    setThrowing(false);
+                    props.setDiceValues([data.dice1, data.dice2]);
+                })
         }, 1000)
     }
 
