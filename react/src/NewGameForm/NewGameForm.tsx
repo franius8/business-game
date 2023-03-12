@@ -40,10 +40,10 @@ export default function NewGameForm () {
         closeModal();
     }
 
-    const selectColor = (e: React.MouseEvent<HTMLDivElement>, colorIndex: number) => {
+    const selectColor = (e: React.MouseEvent<HTMLDivElement>, playerIndex: number, colorIndex: number) => {
         e.stopPropagation();
         const newSelectedColor = [...selectedColor];
-        newSelectedColor[index] = colorIndex;
+        newSelectedColor[playerIndex] = colorIndex;
         setSelectedColor(newSelectedColor);
     }
 
@@ -64,7 +64,8 @@ export default function NewGameForm () {
                     properties: [],
                     pawn: icon!,
                     name: `Player ${index + 1}`,
-                    color: colors[selectedColor[index] || 0]
+                    color: colors[selectedColor[index] || 0],
+                    getOutOfJailFreeCards: 0,
                 })
             }
         })
@@ -98,7 +99,7 @@ export default function NewGameForm () {
                                     {colors.map((color, index2) => (
                                         <div className={selectedColor[index] == index2 ? "selected" : ""}
                                              style={{backgroundColor: color}} key={index2}
-                                             onClick={(e) => selectColor(e, index2)} />
+                                             onClick={(e) => selectColor(e, index, index2)} />
                                     ))}
                                 </div>
                             </div>

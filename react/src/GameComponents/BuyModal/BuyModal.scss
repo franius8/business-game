@@ -1,0 +1,15 @@
+@import '../src/variables.scss';
+
+.buy-modal-button-container {
+  @include centeredFlex;
+  gap: 1rem;
+
+  h2 {
+    text-align: center;
+  }
+
+  .buy-modal-button {
+    @include standardButton;
+    @include colorWhiteButton();
+  }
+}

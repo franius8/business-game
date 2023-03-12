@@ -15,7 +15,6 @@ interface SpaceProps {
     space: SpaceInterface,
     updateSelectedProperty: (space: SpaceInterface) => void
     players: PlayerInterface[],
-    owner?: number,
     turnCount: number
 }
 
@@ -60,9 +59,15 @@ export default function Space( { space, updateSelectedProperty, players, turnCou
             spaceElement = <div />;
     }
 
+    let border = "";
+    if (space.property?.owner || space.railroad?.owner || space.utility?.owner) {
+        const owner = space.property?.owner || space.railroad?.owner || space.utility?.owner;
+        border = `2px solid ${owner!.color}`;
+    }
+
     return (
-        <div onClick={handleClick} className={"space-outer-container"}>
-            <div className={"space"}>
+        <div onClick={handleClick} className={"space-outer-container"} style={{border: border}}>
+            <div className={"space"} >
                 {spaceElement}
             </div>
             <div className={"pawn-container"}>

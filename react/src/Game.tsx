@@ -3,14 +3,24 @@ import './App.scss'
 import "./Game.scss";
 import Board from "./GameComponents/Board/Board";
 import SpaceView from "./GameComponents/SpaceView/SpaceView";
-import {CommunityChestCardActionType, PlayerInterface, SpaceInterface} from "./d";
+import {
+    ChanceCardActionType,
+    CommunityChestCardActionType,
+    PlayerInterface,
+    PurchaseableInterface,
+    SpaceInterface,
+    SpaceType
+} from "./d";
 import PlayerViewContainer from "./GameComponents/PlayerViewContainer/PlayerViewContainer";
 import {useParams} from "react-router-dom";
 import DiceThrowModal from "./GameComponents/DiceThrowModal/DiceThrowModal";
 import DrawStartingPlayerModal from "./GameComponents/DrawStartingPlayerModal/DrawStartingPlayerModal";
-import {bottomSpaces, rightSpaces} from "./GameComponents/Spaces/spaces";
+import {bottomSpaces, leftSpaces, rightSpaces, topSpaces} from "./GameComponents/Spaces/spaces";
 import InfoModal from "./GameComponents/InfoModal/InfoModal";
 import {CommunityChestCards} from "./ChanceCards/CommunityChestCards";
+import {Chance} from "./GameComponents/Space/Chance/Chance";
+import {ChanceCards} from "./ChanceCards/ChanceCards";
+import BuyModal from "./GameComponents/BuyModal/BuyModal";
 
 export default function Game() {
 
@@ -23,8 +33,12 @@ export default function Game() {
   const [doubleCount, setDoubleCount] = React.useState<number>(0);
   const [turnCount, setTurnCount] = React.useState<number>(0);
   const [diceThrown, setDiceThrown] = React.useState<boolean>(false);
+  const [infoModalHeading, setInfoModalHeading] = React.useState<string>("");
   const [infoModalText, setInfoModalText] = React.useState<string>("");
   const [infoModalOpen, setInfoModalOpen] = React.useState<boolean>(false);
+  const [buyModalOpen, setBuyModalOpen] = React.useState<boolean>(false);
+  const [buyModalHeading, setBuyModalHeading] = React.useState<string>("");
+  const [buyModalText, setBuyModalText] = React.useState<string>("");
 
   const { id } = useParams<{ id: string }>();
 
@@ -40,6 +54,56 @@ export default function Game() {
     setStartingPlayerModalOpen(false);
   }
 
+  const findSpace = () => {
+      let space = rightSpaces.find(space => space.id === currentPlayer!.position)!;
+      if (!space) {
+          space = bottomSpaces.find(space => space.id === currentPlayer!.position)!;
+      }
+      if (!space) {
+          space = leftSpaces.find(space => space.id === currentPlayer!.position)!;
+      }
+      if (!space) {
+          space = topSpaces.find(space => space.id === currentPlayer!.position)!;
+      }
+      console.log(space);
+      return space;
+  }
+
+  const handleBuy = () => {
+        const space = findSpace();
+        let name;
+        let price;
+          switch (space.type) {
+              case SpaceType.Property:
+                  price = space.property!.price;
+                  name = space.property!.name;
+                  space.property!.owner = currentPlayer!;
+                  break;
+              case SpaceType.Railroad:
+                  price = space.railroad!.price;
+                  name = space.railroad!.name;
+                  space.railroad!.owner = currentPlayer!;
+                  break;
+              case SpaceType.Utility:
+                  price = space.utility!.price;
+                  name = space.utility!.name;
+                  space.utility!.owner = currentPlayer!;
+                  break;
+              default:
+                  return;
+          }
+        currentPlayer!.properties!.push(space.id);
+        currentPlayer!.money -= price;
+        setBuyModalOpen(false);
+        setInfoModalOpen(true);
+        setInfoModalHeading("Property bought")
+        setInfoModalText(`You bought ${name} for $${price}.`);
+  }
+
+  const handleAuction = () => {
+
+  }
+
   const handleTax = (number: number) => {
       let amount;
         if (number === 4) {
@@ -50,20 +114,12 @@ export default function Game() {
         }
       currentPlayer!.money -= amount;
         setInfoModalOpen(true);
+        setInfoModalHeading("Tax")
         setInfoModalText(`You paid $${amount} in taxes.`);
   }
 
     const handleRailroad = () => {
-        let space = rightSpaces.find(space => space.id === currentPlayer!.position)!;
-        if (!space) {
-            space = bottomSpaces.find(space => space.id === currentPlayer!.position)!;
-        }
-        if (!space) {
-            space = rightSpaces.find(space => space.id === currentPlayer!.position)!;
-        }
-        if (!space) {
-            space = bottomSpaces.find(space => space.id === currentPlayer!.position)!;
-        }
+        const space = findSpace();
         const railroad = space.railroad;
         const railroadOwner = players.find(player => player === railroad!.owner);
         if (railroadOwner) {
@@ -72,17 +128,20 @@ export default function Game() {
             currentPlayer!.money -= rent;
             railroadOwner.money += rent;
             setInfoModalOpen(true);
+            setInfoModalHeading("Rent paid")
             setInfoModalText(`You paid $${rent} in rent to ${railroadOwner.name}.`);
         }
         else {
-            setInfoModalOpen(true);
-            setInfoModalText(`You landed on ${railroad!.name}. It is currently unowned.`);
+            setBuyModalOpen(true);
+            setBuyModalHeading("Railroad")
+            setBuyModalText(`You landed on ${railroad!.name}. It is currently unowned.`);
         }
     }
 
     const handleCommunityChest = () => {
       const communityChestCard = CommunityChestCards[Math.floor(Math.random() * CommunityChestCards.length)];
       setInfoModalOpen(true);
+      setInfoModalHeading("Community Chest")
       setInfoModalText(communityChestCard.text);
       switch (communityChestCard.action) {
           case CommunityChestCardActionType.AdvanceToGo:
@@ -102,12 +161,60 @@ export default function Game() {
     }
 
     const handleChance = () => {
-        const chanceCard = CommunityChestCards[Math.floor(Math.random() * CommunityChestCards.length)];
+        const chanceCard = ChanceCards[Math.floor(Math.random() * CommunityChestCards.length)];
         setInfoModalOpen(true);
+        setInfoModalHeading("Chance")
         setInfoModalText(chanceCard.text);
         switch (chanceCard.action) {
-            case "advanceToGo":
-
+            case ChanceCardActionType.AdvanceToGo:
+                currentPlayer!.position = 0;
+                currentPlayer!.money += 200;
+                break;
+            case ChanceCardActionType.GoToJail:
+                currentPlayer!.position = 10;
+                break;
+            case ChanceCardActionType.PayBank:
+                currentPlayer!.money -= chanceCard.amount!;
+                break;
+            case ChanceCardActionType.CollectFromBank:
+                currentPlayer!.money += chanceCard.amount!;
+                break;
+            case ChanceCardActionType.AdvanceToIllinoisAvenue:
+                currentPlayer!.position = 24;
+                break;
+            case ChanceCardActionType.AdvanceToStCharlesPlace:
+                currentPlayer!.position = 11;
+                break;
+            case ChanceCardActionType.AdvanceToNearestUtility:
+                if (currentPlayer!.position === 7 || currentPlayer!.position === 22 || currentPlayer!.position === 36) {
+                    currentPlayer!.position = 12;
+                }
+                else {
+                    currentPlayer!.position = 28;
+                }
+                break;
+            case ChanceCardActionType.AdvanceToNearestRailroad:
+                if (currentPlayer!.position === 7 || currentPlayer!.position === 22 || currentPlayer!.position === 36) {
+                    currentPlayer!.position = 15;
+                }
+                else {
+                    currentPlayer!.position = 25;
+                }
+                break;
+            case ChanceCardActionType.AdvanceToReadingRailroad:
+                currentPlayer!.position = 5;
+                break;
+            case ChanceCardActionType.AdvanceToBoardwalk:
+                currentPlayer!.position = 39;
+                break;
+            case ChanceCardActionType.GoBackThreeSpaces:
+                const position = currentPlayer!.position;
+                currentPlayer!.position -= 3;
+                if (currentPlayer!.position < 0) {
+                    currentPlayer!.position = 40 + currentPlayer!.position;
+                }
+                handleNewPosition(position);
+                break;
         }
     }
 
@@ -116,7 +223,21 @@ export default function Game() {
     }
 
     const handleProperty = () => {
-
+        const space = findSpace();
+        const property = space.property;
+        const propertyOwner = players.find(player => player === property!.owner);
+        if (propertyOwner) {
+            const rent = property!.rentnohouse;
+            currentPlayer!.money -= rent;
+            propertyOwner.money += rent;
+            setInfoModalOpen(true);
+            setInfoModalHeading("Rent paid")
+            setInfoModalText(`You paid $${rent} in rent to ${propertyOwner.name}.`);
+        } else {
+            setBuyModalOpen(true);
+            setBuyModalHeading("Property")
+            setBuyModalText(`You landed on ${property!.name}. It is currently unowned.`);
+        }
     }
 
   const handleNewPosition = (prevPosition: number) => {
@@ -147,6 +268,10 @@ export default function Game() {
        else {
             handleProperty();
         }
+       updatePlayers().then(() => {
+           return;
+           }
+       )
   }
 
   const changeCurrentPlayer = () => {
@@ -222,7 +347,7 @@ export default function Game() {
   }, [id]);
 
   useEffect(() => {
-      if (currentPlayer) {
+      if (currentPlayer && !diceModalOpen) {
           const position = currentPlayer.position;
           const is_double = diceValues[0] === diceValues[1];
           if (is_double && doubleCount == 2) {
@@ -233,16 +358,11 @@ export default function Game() {
           }
           logTurn(position, currentPlayer.position).then(() => {
                 setTurnCount(turnCount + 1);
-                updatePlayers()
-                    .then(() => {
-                        setDiceThrown(true);
-                    })
-                    .then(() => {
-                        handleNewPosition(position);
-                    })
+                setDiceThrown(true);
+                handleNewPosition(position);
           })
       }
-  }, [diceValues]);
+  }, [diceModalOpen]);
 
   const updateSelectedProperty = (space: SpaceInterface) => {
     setSelectedProperty(space);
@@ -250,7 +370,7 @@ export default function Game() {
 
   return (
     <div className="App">
-      <PlayerViewContainer players={players} />
+      <PlayerViewContainer players={players} currentPlayer={currentPlayer} />
       <Board updateSelectedProperty={updateSelectedProperty} players={players} turnCount={turnCount}/>
         <div className={"side-container"}>
             <div className={"current-player-container"}>
@@ -268,7 +388,9 @@ export default function Game() {
         <DiceThrowModal modalVisible={diceModalOpen} closeModal={closeDiceModal} setDiceValues={setDiceValues}/>
         <DrawStartingPlayerModal modalVisible={startingPlayerModalOpen} closeModal={closeStartingPlayerModal}
                                  players={players} setStartingPlayer={setCurrentPlayer} />
-        <InfoModal modalVisible={infoModalOpen} closeModal={() => setInfoModalOpen(false)} text={infoModalText} />
+        <InfoModal heading={infoModalHeading} modalVisible={infoModalOpen} closeModal={() => setInfoModalOpen(false)} text={infoModalText} />
+        <BuyModal modalVisible={buyModalOpen} closeModal={() => setBuyModalOpen(false)} text={buyModalText} heading={buyModalHeading}
+         buy={handleBuy} auction={handleAuction}/>
     </div>
   )
 }

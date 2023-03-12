@@ -75,7 +75,8 @@ export interface PlayerInterface {
     pawn: string;
     position: number;
     money: number;
-    properties: PurchaseableInterface[];
+    properties: number[];
+    getOutOfJailFreeCards: number;
 }
 
 export enum CommunityChestCardActionType {

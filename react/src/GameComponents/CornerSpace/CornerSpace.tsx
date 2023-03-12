@@ -13,7 +13,7 @@ interface CornerSpaceProps {
 
 export default function CornerSpace( { corner, space, clickHandler, players, turnCount}: CornerSpaceProps ) {
 
-    const [positions, setPositions] = useState<number[]>([]);
+    const [positions, setPositions] = useState<number[]>(players.map((player) => player.position));
 
     const handleClick = () => {
         clickHandler(space);

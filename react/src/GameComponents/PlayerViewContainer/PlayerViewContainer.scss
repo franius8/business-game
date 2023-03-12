@@ -5,4 +5,8 @@
   @include centeredFlex;
   flex-direction: column;
   gap: 1rem;
+  .current-player {
+    background-color: rgba(255, 0, 0, 0.2);
+    border-radius: 50% 30% 30% 50%;
+  }
 }
