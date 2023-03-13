@@ -17,7 +17,8 @@ router.post('/', function(req, res, next) {
             players: players,
             gameLogId: gameLogId,
             turn: 0,
-            currentPlayer: 0
+            currentPlayer: 0,
+            playersBankrupt: 0,
         });
         let id;
         game.save().then(result => {

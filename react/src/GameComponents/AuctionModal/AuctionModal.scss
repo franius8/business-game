@@ -1,0 +1,7 @@
+@import './src/variables';
+
+.auction-info-div {
+    display: grid;
+    grid-template: repeat(2, 1fr) / 1fr;
+
+}

@@ -15,6 +15,10 @@ const GameSchema = new Schema({
         type: Number,
         required: true
     },
+    playersBankrupt: {
+        type: Number,
+        required: true
+    },
     gameLogId: {
         type: String,
         required: true

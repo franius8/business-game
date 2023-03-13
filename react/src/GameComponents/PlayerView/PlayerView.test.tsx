@@ -27,7 +27,8 @@ it("renders the player name", () => {
         pawn: "TbRainbow",
         position: 0,
         money: 1500,
-        properties: []
+        properties: [],
+        getOutOfJailFreeCards: 0,
     }
     act(() => {
         render(<PlayerView player={testPlayer} />, container!);

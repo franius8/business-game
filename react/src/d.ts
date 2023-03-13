@@ -77,6 +77,16 @@ export interface PlayerInterface {
     money: number;
     properties: number[];
     getOutOfJailFreeCards: number;
+    hotels: number;
+    houses: number;
+    inJail: boolean;
+    jailTurns: number;
+    bankrupt: boolean;
+    utilities: number;
+    additionalStats: {
+        rentReceived: number;
+        rentPaid: number;
+    }
 }
 
 export enum CommunityChestCardActionType {

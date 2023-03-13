@@ -7,8 +7,6 @@ import Railroad from "./Railroad/Railroad";
 import Utility from "./Utility/Utility";
 import Tax from "./Tax/Tax";
 import {CommunityChest} from "./CommunityChest/CommunityChest";
-import {IconType} from "react-icons";
-import Pawn from "../Pawn/Pawn";
 import GenerateIcon from "../../GenerateIcon/GenerateIcon";
 
 interface SpaceProps {

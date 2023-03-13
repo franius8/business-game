@@ -3,14 +3,7 @@ import './App.scss'
 import "./Game.scss";
 import Board from "./GameComponents/Board/Board";
 import SpaceView from "./GameComponents/SpaceView/SpaceView";
-import {
-    ChanceCardActionType,
-    CommunityChestCardActionType,
-    PlayerInterface,
-    PurchaseableInterface,
-    SpaceInterface,
-    SpaceType
-} from "./d";
+import {ChanceCardActionType, CommunityChestCardActionType, PlayerInterface, SpaceInterface, SpaceType} from "./d";
 import PlayerViewContainer from "./GameComponents/PlayerViewContainer/PlayerViewContainer";
 import {useParams} from "react-router-dom";
 import DiceThrowModal from "./GameComponents/DiceThrowModal/DiceThrowModal";
@@ -21,11 +14,13 @@ import {CommunityChestCards} from "./ChanceCards/CommunityChestCards";
 import {Chance} from "./GameComponents/Space/Chance/Chance";
 import {ChanceCards} from "./ChanceCards/ChanceCards";
 import BuyModal from "./GameComponents/BuyModal/BuyModal";
+import AuctionModal from "./GameComponents/AuctionModal/AuctionModal";
 
 export default function Game() {
 
   const [selectedProperty, setSelectedProperty] = React.useState<SpaceInterface | null>(null);
   const [players, setPlayers] = React.useState<PlayerInterface[]>([]);
+  const [bankruptPlayers, setBankruptPlayers] = React.useState<number>(0);
   const [diceModalOpen, setDiceModalOpen] = React.useState<boolean>(false);
   const [startingPlayerModalOpen, setStartingPlayerModalOpen] = React.useState<boolean>(false);
   const [diceValues, setDiceValues] = React.useState<[number, number]>([1, 1]);
@@ -39,6 +34,11 @@ export default function Game() {
   const [buyModalOpen, setBuyModalOpen] = React.useState<boolean>(false);
   const [buyModalHeading, setBuyModalHeading] = React.useState<string>("");
   const [buyModalText, setBuyModalText] = React.useState<string>("");
+  const [auctionModalOpen, setAuctionModalOpen] = React.useState<boolean>(false);
+  const [auctionModalHeading, setAuctionModalHeading] = React.useState<string>("");
+  const [auctionModalText, setAuctionModalText] = React.useState<string>("");
+  const [currentAuctionPrice, setCurrentAuctionPrice] = React.useState<number>(0);
+  const [auctionPlayer, setAuctionPlayer] = React.useState<PlayerInterface | null>(null);
 
   const { id } = useParams<{ id: string }>();
 
@@ -52,6 +52,15 @@ export default function Game() {
 
   const closeStartingPlayerModal = () => {
     setStartingPlayerModalOpen(false);
+  }
+
+  const checkForBankruptcy = () => {
+        if (currentPlayer!.money < 0) {
+            setInfoModalOpen(true);
+            setInfoModalHeading("Bankruptcy")
+            setInfoModalText(`${currentPlayer!.name} is bankrupt!`);
+            setBankruptPlayers(bankruptPlayers + 1);
+        }
   }
 
   const findSpace = () => {
@@ -126,15 +135,23 @@ export default function Game() {
             const railroadsOwned = players.filter(player => player === railroadOwner).length;
             const rent = railroad!.rent * 2 ** (railroadsOwned - 1)
             currentPlayer!.money -= rent;
+            currentPlayer!.additionalStats.rentPaid += rent;
             railroadOwner.money += rent;
+            railroadOwner.additionalStats.rentReceived += rent;
             setInfoModalOpen(true);
             setInfoModalHeading("Rent paid")
             setInfoModalText(`You paid $${rent} in rent to ${railroadOwner.name}.`);
         }
         else {
-            setBuyModalOpen(true);
-            setBuyModalHeading("Railroad")
-            setBuyModalText(`You landed on ${railroad!.name}. It is currently unowned.`);
+            if (currentPlayer!.money > railroad!.price) {
+                setBuyModalOpen(true);
+                setBuyModalHeading("Railroad")
+                setBuyModalText(`You landed on ${railroad!.name}. It is currently unowned.`);
+            } else {
+                setInfoModalOpen(true);
+                setInfoModalHeading("Not enough money")
+                setInfoModalText(`You do not have enough money to buy ${railroad!.name}.`);
+            }
         }
     }
 
@@ -215,11 +232,37 @@ export default function Game() {
                 }
                 handleNewPosition(position);
                 break;
+            case ChanceCardActionType.GetOutOfJailFree:
+                currentPlayer!.getOutOfJailFreeCards++;
         }
     }
 
     const handleUtility = () => {
-
+      const space = findSpace();
+      const utility = space.utility!;
+      const utilityOwner = players.find(player => player === utility.owner);
+      if (utilityOwner) {
+            const utilitiesOwned = utilityOwner.utilities;
+            const factor = utilitiesOwned === 1 ? 4 : 10;
+            const rent = factor * diceValues.reduce((a, b) => a + b, 0);
+            currentPlayer!.money -= rent;
+            currentPlayer!.additionalStats.rentPaid += rent;
+            utilityOwner.money += rent;
+            utilityOwner.additionalStats.rentReceived += rent;
+            setInfoModalOpen(true);
+            setInfoModalHeading("Rent paid")
+            setInfoModalText(`You paid $${rent} in rent to ${utilityOwner.name}.`);
+        } else {
+          if (currentPlayer!.money > utility.price) {
+                setBuyModalOpen(true);
+                setBuyModalHeading("Utility")
+                setBuyModalText(`You landed on ${utility.name}. It is currently unowned.`);
+          } else {
+                setInfoModalOpen(true);
+                setInfoModalHeading("Not enough money")
+                setInfoModalText(`You do not have enough money to buy ${utility.name}.`);
+          }
+      }
     }
 
     const handleProperty = () => {
@@ -229,14 +272,22 @@ export default function Game() {
         if (propertyOwner) {
             const rent = property!.rentnohouse;
             currentPlayer!.money -= rent;
+            currentPlayer!.additionalStats.rentPaid += rent;
             propertyOwner.money += rent;
+            propertyOwner.additionalStats.rentReceived += rent;
             setInfoModalOpen(true);
             setInfoModalHeading("Rent paid")
             setInfoModalText(`You paid $${rent} in rent to ${propertyOwner.name}.`);
         } else {
-            setBuyModalOpen(true);
-            setBuyModalHeading("Property")
-            setBuyModalText(`You landed on ${property!.name}. It is currently unowned.`);
+            if (currentPlayer!.money > property!.price) {
+                setBuyModalOpen(true);
+                setBuyModalHeading("Property")
+                setBuyModalText(`You landed on ${property!.name}. It is currently unowned.`);
+            } else {
+                setInfoModalOpen(true);
+                setInfoModalHeading("Not enough money")
+                setInfoModalText(`You do not have enough money to buy ${property!.name}.`);
+            }
         }
     }
 
@@ -323,6 +374,7 @@ export default function Game() {
                 game_id: id,
                 players: players,
                 turn: turnCount,
+                bankruptPlayers: bankruptPlayers,
             }),
         })
   }
@@ -340,6 +392,7 @@ export default function Game() {
         setPlayers(game.players);
         setTurnCount(game.turn);
         setCurrentPlayer(game.players[game.currentPlayer])
+        setBankruptPlayers(game.bankruptPlayers)
         if (game.turn === 0) {
             setStartingPlayerModalOpen(true);
         }
@@ -391,6 +444,9 @@ export default function Game() {
         <InfoModal heading={infoModalHeading} modalVisible={infoModalOpen} closeModal={() => setInfoModalOpen(false)} text={infoModalText} />
         <BuyModal modalVisible={buyModalOpen} closeModal={() => setBuyModalOpen(false)} text={buyModalText} heading={buyModalHeading}
          buy={handleBuy} auction={handleAuction}/>
+        <AuctionModal modalVisible={auctionModalOpen} closeModal={() => setAuctionModalOpen(false)}
+                      text={auctionModalText} heading={auctionModalHeading} players={players} setAuctionPlayer={setAuctionPlayer}
+                      setAuctionPrice={setCurrentAuctionPrice}/>
     </div>
   )
 }

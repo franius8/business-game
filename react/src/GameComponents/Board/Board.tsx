@@ -1,6 +1,5 @@
 import React from "react";
 import "./Board.scss";
-import {GiWindowBars, GrUserPolice, TbArrowLeftTail, TbParking} from "react-icons/all";
 import {PlayerInterface, SpaceInterface} from "../../d";
 import BoardSquare from "../BoardSquare/BoardSquare";
 import CornerSpace from "../CornerSpace/CornerSpace";

@@ -66,6 +66,16 @@ export default function NewGameForm () {
                     name: `Player ${index + 1}`,
                     color: colors[selectedColor[index] || 0],
                     getOutOfJailFreeCards: 0,
+                    inJail: false,
+                    jailTurns: 0,
+                    bankrupt: false,
+                    houses: 0,
+                    hotels: 0,
+                    utilities: 0,
+                    additionalStats: {
+                        rentPaid: 0,
+                        rentReceived: 0,
+                    }
                 })
             }
         })

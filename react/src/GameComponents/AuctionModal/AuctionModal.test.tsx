@@ -1,4 +1,8 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
+import {render} from 'react-dom';
+
+import AuctionModal from './AuctionModal'
 
 let container: Element | null = null;
 
