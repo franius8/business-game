@@ -38,7 +38,7 @@ export default function Game() {
   const [auctionModalHeading, setAuctionModalHeading] = React.useState<string>("");
   const [auctionModalText, setAuctionModalText] = React.useState<string>("");
   const [currentAuctionPrice, setCurrentAuctionPrice] = React.useState<number>(0);
-  const [auctionPlayer, setAuctionPlayer] = React.useState<PlayerInterface | null>(null);
+  const [auctionPlayer, setAuctionPlayer] = React.useState<PlayerInterface>(players[0]);
 
   const { id } = useParams<{ id: string }>();
 
@@ -110,7 +110,11 @@ export default function Game() {
   }
 
   const handleAuction = () => {
-
+      console.log(currentPlayer)
+      setAuctionPlayer(currentPlayer!);
+    setAuctionModalOpen(true);
+    setAuctionModalHeading("Auction");
+    setAuctionModalText(`${currentPlayer!.name} is starting the auction. The current bid is $${currentAuctionPrice}.`);
   }
 
   const handleTax = (number: number) => {

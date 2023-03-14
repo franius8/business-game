@@ -29,6 +29,16 @@ it("renders the player name", () => {
         money: 1500,
         properties: [],
         getOutOfJailFreeCards: 0,
+        inJail: false,
+        jailTurns: 0,
+        bankrupt: false,
+        houses: 0,
+        hotels: 0,
+        utilities: 0,
+        additionalStats: {
+            rentPaid: 0,
+            rentReceived: 0,
+        }
     }
     act(() => {
         render(<PlayerView player={testPlayer} />, container!);
