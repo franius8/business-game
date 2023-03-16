@@ -10,6 +10,7 @@ const startGame = require('./routes/startGame');
 const getGame = require('./routes/getGame');
 const gameLogger = require('./routes/gameLogger');
 const throwDice = require('./routes/throwDice');
+const auctionHandling = require('./routes/auctionHandling');
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use('/startGame', startGame);
 app.use('/getGame', getGame);
 app.use('/gameLogger', gameLogger);
 app.use('/throwDice', throwDice);
+app.use('/auctionHandling', auctionHandling);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

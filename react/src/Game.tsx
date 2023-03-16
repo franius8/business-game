@@ -35,10 +35,7 @@ export default function Game() {
   const [buyModalHeading, setBuyModalHeading] = React.useState<string>("");
   const [buyModalText, setBuyModalText] = React.useState<string>("");
   const [auctionModalOpen, setAuctionModalOpen] = React.useState<boolean>(false);
-  const [auctionModalHeading, setAuctionModalHeading] = React.useState<string>("");
-  const [auctionModalText, setAuctionModalText] = React.useState<string>("");
-  const [currentAuctionPrice, setCurrentAuctionPrice] = React.useState<number>(0);
-  const [auctionPlayer, setAuctionPlayer] = React.useState<PlayerInterface>(players[0]);
+  const [auctionId, setAuctionId] = React.useState<string>("");
 
   const { id } = useParams<{ id: string }>();
 
@@ -78,7 +75,7 @@ export default function Game() {
       return space;
   }
 
-  const handleBuy = () => {
+  const handleBuy = (afterAuction: boolean = false) => {
         const space = findSpace();
         let name;
         let price;
@@ -104,17 +101,29 @@ export default function Game() {
         currentPlayer!.properties!.push(space.id);
         currentPlayer!.money -= price;
         setBuyModalOpen(false);
-        setInfoModalOpen(true);
-        setInfoModalHeading("Property bought")
-        setInfoModalText(`You bought ${name} for $${price}.`);
+      if (afterAuction) {
+          setInfoModalOpen(true);
+          setInfoModalHeading("Property bought")
+          setInfoModalText(`You bought ${name} for $${price}.`);
+      }
   }
 
   const handleAuction = () => {
-      console.log(currentPlayer)
-      setAuctionPlayer(currentPlayer!);
-    setAuctionModalOpen(true);
-    setAuctionModalHeading("Auction");
-    setAuctionModalText(`${currentPlayer!.name} is starting the auction. The current bid is $${currentAuctionPrice}.`);
+      fetch(`http://localhost:3000/auctionHandling/createAuction`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                gameId: id,
+                auctionPlayer: players.findIndex(player => player === currentPlayer),
+                highestBidder: null,
+                auctionProperty: findSpace().id,
+            })
+      })
+          .then((response) => {
+              setAuctionModalOpen(true);
+          })
   }
 
   const handleTax = (number: number) => {
@@ -421,8 +430,27 @@ export default function Game() {
       }
   }, [diceModalOpen]);
 
+  useEffect(() => {
+      if (!auctionModalOpen && auctionId) {
+          handleBuy(true);
+      }
+  }, [auctionModalOpen]);
+
   const updateSelectedProperty = (space: SpaceInterface) => {
     setSelectedProperty(space);
+  }
+
+  const testIncrease = () => {
+      fetch(`http://localhost:3000/testAPI`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+      })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+        })
   }
 
   return (
@@ -449,8 +477,7 @@ export default function Game() {
         <BuyModal modalVisible={buyModalOpen} closeModal={() => setBuyModalOpen(false)} text={buyModalText} heading={buyModalHeading}
          buy={handleBuy} auction={handleAuction}/>
         <AuctionModal modalVisible={auctionModalOpen} closeModal={() => setAuctionModalOpen(false)}
-                      text={auctionModalText} heading={auctionModalHeading} players={players} setAuctionPlayer={setAuctionPlayer}
-                      setAuctionPrice={setCurrentAuctionPrice}/>
+                      players={players} auctionId={auctionId}/>
     </div>
   )
 }
