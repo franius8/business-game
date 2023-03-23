@@ -41,7 +41,17 @@ players: PlayerInterface[], auctionId: string}) {
             })
         })
     } else {
-      setAuctionEnded(true);
+      fetch(`http://localhost:3001/auctionHandling/finishAuction`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+      })
+      .then(response => {
+        if (response.status === 200) {
+          setAuctionEnded(true);
+        }
+      })
     }
   }
 

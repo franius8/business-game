@@ -31,6 +31,7 @@ export interface PurchaseableInterface {
     price: number;
     mortgage: number;
     owner?: PlayerInterface;
+    mortgaged?: boolean;
 }
 
 export interface CornertSpaceInterface {

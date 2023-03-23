@@ -9,7 +9,7 @@ export default function PlayerViewContainer (props: {players: PlayerInterface[],
         {props.players.map((player, index) => {
             return (
                 <div className={props.currentPlayer === player ? "current-player" : ""}>
-                  <PlayerView key={"player" + index} player={player} />
+                  <PlayerView key={"player-view-" + index} player={player} />
                 </div>
             )}
         )}

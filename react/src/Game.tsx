@@ -15,6 +15,7 @@ import {Chance} from "./GameComponents/Space/Chance/Chance";
 import {ChanceCards} from "./ChanceCards/ChanceCards";
 import BuyModal from "./GameComponents/BuyModal/BuyModal";
 import AuctionModal from "./GameComponents/AuctionModal/AuctionModal";
+import PropertyHandlingModal from "./GameComponents/PropertyHandlingModal/PropertyHandlingModal";
 
 export default function Game() {
 
@@ -36,6 +37,7 @@ export default function Game() {
   const [buyModalText, setBuyModalText] = React.useState<string>("");
   const [auctionModalOpen, setAuctionModalOpen] = React.useState<boolean>(false);
   const [auctionId, setAuctionId] = React.useState<string>("");
+  const [propertyHandlingModalOpen, setPropertyHandlingModalOpen] = React.useState<boolean>(false);
 
   const { id } = useParams<{ id: string }>();
 
@@ -56,8 +58,11 @@ export default function Game() {
             setInfoModalOpen(true);
             setInfoModalHeading("Bankruptcy")
             setInfoModalText(`${currentPlayer!.name} is bankrupt!`);
+            currentPlayer!.bankrupt = true;
             setBankruptPlayers(bankruptPlayers + 1);
+            return true
         }
+        return false;
   }
 
   const findSpace = () => {
@@ -71,11 +76,10 @@ export default function Game() {
       if (!space) {
           space = topSpaces.find(space => space.id === currentPlayer!.position)!;
       }
-      console.log(space);
       return space;
   }
 
-  const handleBuy = (afterAuction: boolean = false) => {
+  const handleBuy = () => {
         const space = findSpace();
         let name;
         let price;
@@ -101,11 +105,9 @@ export default function Game() {
         currentPlayer!.properties!.push(space.id);
         currentPlayer!.money -= price;
         setBuyModalOpen(false);
-      if (afterAuction) {
-          setInfoModalOpen(true);
-          setInfoModalHeading("Property bought")
-          setInfoModalText(`You bought ${name} for $${price}.`);
-      }
+        setInfoModalOpen(true);
+        setInfoModalHeading("Property bought")
+        setInfoModalText(`You bought ${name} for $${price}.`);
   }
 
   const handleAuction = () => {
@@ -341,6 +343,7 @@ export default function Game() {
   const changeCurrentPlayer = () => {
       setDiceThrown(false);
     const index = players.indexOf(currentPlayer!);
+    if (checkForBankruptcy())
     fetch(`http://localhost:3000/getGame/changePlayer`, {
         method: 'POST',
         headers: {
@@ -354,7 +357,6 @@ export default function Game() {
         .then(response => response.json())
         .then(data => {
             setCurrentPlayer(players[parseInt(data)]);
-            console.log(data);
         }
     )
   }
@@ -432,7 +434,39 @@ export default function Game() {
 
   useEffect(() => {
       if (!auctionModalOpen && auctionId) {
-          handleBuy(true);
+          fetch(`http://localhost:3000/auction/getPrice/${auctionId}`, {
+              method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const price = data;
+                if (price > 0) {
+                    const auctionWinner = players[data.highestBidder]
+                    const space = findSpace();
+                    let name;
+                    switch (space.type) {
+                        case SpaceType.Property:
+                            name = space.property!.name;
+                            space.property!.owner = currentPlayer!;
+                            break;
+                        case SpaceType.Railroad:
+                            name = space.railroad!.name;
+                            space.railroad!.owner = currentPlayer!;
+                            break;
+                        case SpaceType.Utility:
+                            name = space.utility!.name;
+                            space.utility!.owner = currentPlayer!;
+                            break;
+                        default:
+                            return;
+                    }
+                    auctionWinner.money -= price;
+                    auctionWinner.properties.push(space.id);
+                }
+            })
       }
   }, [auctionModalOpen]);
 
@@ -440,18 +474,9 @@ export default function Game() {
     setSelectedProperty(space);
   }
 
-  const testIncrease = () => {
-      fetch(`http://localhost:3000/testAPI`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-      })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-        })
-  }
+  useEffect(() => {
+      console.log(currentPlayer)
+  }, []);
 
   return (
     <div className="App">
@@ -466,6 +491,9 @@ export default function Game() {
             <div className={`wrapper ${!diceThrown ? "" : "game-button-disabled"}`}>
                 <button className={"dice-button"} onClick={handleDiceThrow}>Throw dice</button>
             </div>
+            <div>
+                <button className={"manage-properties-button"} onClick={() => setPropertyHandlingModalOpen(true)}>Manage properties</button>
+            </div>
             <div className={`wrapper ${diceThrown ? "" : "game-button-disabled"}`}>
                 <button className={"end-turn-button"} onClick={changeCurrentPlayer}>End turn</button>
             </div>
@@ -478,6 +506,8 @@ export default function Game() {
          buy={handleBuy} auction={handleAuction}/>
         <AuctionModal modalVisible={auctionModalOpen} closeModal={() => setAuctionModalOpen(false)}
                       players={players} auctionId={auctionId}/>
+        <PropertyHandlingModal modalVisible={propertyHandlingModalOpen} closeModal={() => setPropertyHandlingModalOpen(false)}
+                               properties={currentPlayer?.properties} />
     </div>
   )
 }

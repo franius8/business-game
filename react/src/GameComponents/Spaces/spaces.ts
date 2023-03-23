@@ -276,3 +276,11 @@ export const cornerSpaces: SpaceInterface[] = [
         }
     },
     ]
+
+export const allSpaces: SpaceInterface[] = [
+    ...topSpaces,
+    ...rightSpaces,
+    ...bottomSpaces,
+    ...leftSpaces,
+    ...cornerSpaces,
+];

@@ -92,4 +92,16 @@ router.get('/getProperty/:id', (req, res, next) => {
         });
 });
 
+router.get('/getAuctionInfo/:id', (req, res, next) => {
+    const auctionId = req.params.id;
+    const Auction = require("../models/auction");
+    Auction.findById(auctionId)
+        .then(auction => {
+            res.status(200).json({
+                price: auction.price,
+                highestBidder: auction.highestBidder,
+            });
+        });
+});
+
 module.exports = router;
